@@ -1,6 +1,16 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-10-24b', date: '24/10/2026',
+    title: 'Phân tích bài làm chi tiết + đề thi thật VOL 7',
+    items: [
+      'Nộp bài xong bấm "📊 Phân tích chi tiết" để xem trang phân tích giống study4: số câu đúng, sai, bỏ qua, điểm ước tính.',
+      'Bảng phân tích theo từng dạng câu hỏi của mỗi Part: biết ngay mình hay sai dạng nào để luyện thêm.',
+      'Danh sách đáp án từng câu so với câu bạn chọn; bấm "Chi tiết" để mở đúng câu đó xem giải thích.',
+      'Mục mới "Đề thi thật (recall)" trên trang chủ: bộ IELTS Original Exams VOL 7, hiện có Test 1–2 đủ Listening và Reading, có lời thoại và giải thích tiếng Việt.'
+    ]
+  },
+  {
     id: '2026-10-24', date: '24/10/2026',
     title: 'Audio Listening tải nhanh hơn',
     items: [
