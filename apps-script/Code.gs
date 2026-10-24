@@ -26,21 +26,21 @@ function doPost(e) {
   try {
     const d = JSON.parse(e.postData.contents);
     if (d.kind !== 'cam20') return out_({ ok: false, error: 'sai loại dữ liệu' });
-    const when = new Date(d.submittedAt || Date.now()), name = d.name || '(chưa nhập tên)', lop = d.lop || '', email = String(d.email || '').slice(0, 120);
-    const part = String(d.part || '');
+    const when = new Date(d.submittedAt || Date.now()), name = t_(d.name, 80) || '(chưa nhập tên)', lop = t_(d.lop, 60), email = t_(d.email, 120);
+    const part = String(d.part || '').slice(0, 120), ua = t_(d.userAgent, 200);
     if (part.indexOf('Góp ý') === 0 || d.mode === 'Góp ý') {
-      const msg = String(d.wrong || ''), i = msg.lastIndexOf('\n— Trang: ');
-      tab_(FB_NAME, FB_HEAD).appendRow([when, name, lop, part.replace(/^Góp ý · /, ''), i >= 0 ? msg.slice(0, i) : msg, i >= 0 ? msg.slice(i + 10) : '', d.userAgent || '', email]);
+      const msg = String(d.wrong || '').slice(0, 5000), i = msg.lastIndexOf('\n— Trang: ');
+      tab_(FB_NAME, FB_HEAD).appendRow([when, name, lop, t_(part.replace(/^Góp ý · /, '')), t_(i >= 0 ? msg.slice(0, i) : msg), t_(i >= 0 ? msg.slice(i + 10) : ''), ua, email]);
       return out_({ ok: true });
     }
     if (d.mode === 'Writing') {
-      tab_(WS_NAME, WS_HEAD).appendRow([when, name, lop, d.test || '', part, Number(d.got) || '', Number(d.total) || '', d.minutes || '', d.wrong || '', email]);
+      tab_(WS_NAME, WS_HEAD).appendRow([when, name, lop, t_(d.test, 120), t_(part), Number(d.got) || '', Number(d.total) || '', t_(d.minutes, 20), t_(d.wrong, 20000), email]);
       return out_({ ok: true });
     }
     const sh = tab_(SHEET_NAME, HEAD);
     const total = Number(d.total) || 0, got = Number(d.got) || 0;
     const pct = total ? Math.round(got / total * 1000) / 10 : '';
-    sh.appendRow([when, name, lop, d.test || '', part, d.mode || '', got, total, pct, d.band || '', d.minutes || '', d.wrong || '', d.auto ? 'Có' : '', d.userAgent || '', email, String(d.answers || '').slice(0, 49000)]);
+    sh.appendRow([when, name, lop, t_(d.test, 120), t_(part), t_(d.mode, 40), got, total, pct, t_(d.band, 10), t_(d.minutes, 20), t_(d.wrong, 5000), d.auto ? 'Có' : '', ua, email, t_(d.answers, 49000)]);
     const r = sh.getLastRow();
     if (pct !== '') sh.getRange(r, 7, 1, 4).setBackground(pct >= 70 ? '#e1f4ec' : pct >= 50 ? '#fdf3dc' : '#fbe6e2');
     return out_({ ok: true });
@@ -91,6 +91,14 @@ function tab_(name, head) {
     sh.setColumnWidth(2, 180);
   }
   return sh;
+}
+
+// Chữ học viên gửi lên: cắt bớt độ dài, và thêm dấu ' trước chữ bắt đầu bằng = + - @
+// để Google Sheet hiểu là chữ thường, không chạy như công thức (VD tên "=IMPORTXML(...)").
+function t_(v, max) {
+  if (typeof v === 'number') return v;
+  const s = String(v == null ? '' : v).slice(0, max || 500);
+  return /^[=+\-@\t\r]/.test(s) ? "'" + s : s;
 }
 
 function out_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }

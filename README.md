@@ -37,19 +37,33 @@ Trang luyện tập cho học viên: 4 test mỗi bộ Cambridge IELTS 17, 18, 1
 
 Học viên nhập họ tên (và lớp/nhóm) ở trang chủ. Mỗi lần nộp bài, kết quả (phần, chế độ, số câu đúng, band, thời gian, câu sai) được gửi về Google Sheet của giáo viên.
 
-Cài đặt một lần: tạo Google Sheet → *Tiện ích mở rộng → Apps Script* → dán nội dung `apps-script/Code.gs` → chạy `setup` → *Triển khai → Ứng dụng web* (Thực thi: Tôi · Truy cập: Bất kỳ ai) → dán link `/exec` vào `SCRIPT_URL` trong `config.js`. Để trống thì trang không gửi kết quả.
+Cài đặt một lần: tạo Google Sheet → *Tiện ích mở rộng → Apps Script* → dán nội dung `apps-script/Code.gs` → chạy `setup` → *Triển khai → Ứng dụng web* (Thực thi: Tôi · Truy cập: Bất kỳ ai) → dán link `/exec` vào `SCRIPT_URL` trong `config.js` của từng bộ (`c17/` … `c21/`, `v7/`). Để trống thì trang không gửi kết quả.
 
 ## Cấu trúc thư mục
 
 ```
-index.html          trang chủ: thông tin học viên, chọn test / phần / thi thử
-test-1..4.html      trang làm bài (test-N.html?part=L1 … R3, ?part=L&thi=1 để thi thử)
-tien-do.html        trang tiến độ của học viên
-config.js           link Apps Script nhận kết quả
-fc.js, vocab.js     flashcard và danh sách từ vựng từng passage
-audio/              audio Listening (t1-part1.mp3 …) và phát âm từ vựng (audio/vocab/)
-img-t3/             bản đồ Listening Test 3
-apps-script/        mã Google Apps Script ghi kết quả vào Sheet
+index.html            trang chủ: thông tin học viên, chọn bộ đề
+c17/ … c21/           mỗi thư mục là một bộ Cambridge (17–21), bên trong:
+  index.html            chọn test / phần / thi thử của bộ đó
+  test-1..4.html        trang làm bài (test-N.html?part=L1 … R3, ?part=L&thi=1 để thi thử)
+  tien-do.html          tiến độ của học viên
+  config.js             link Apps Script nhận kết quả (SCRIPT_URL)
+  sync.js               mốc thời gian lời thoại chạy theo audio
+  dict.js, fc.js, vocab.js   từ điển bổ sung, flashcard, từ vựng từng passage
+  ws.js                 đề và bài mẫu Writing / Speaking
+  audio/                audio Listening (t1-part1.mp3 …) và phát âm từ vựng (audio/vocab/)
+  img-t*/, img-ws/      hình trong đề Listening / Writing
+v7/                   bộ IELTS Original Exams Vol 7 (cùng cấu trúc)
+shared/               code dùng chung cho mọi bộ: menu (ui.js), tra từ (lookup.js, dict.js),
+                      lời thoại chạy chữ (sync.js), tốc độ audio, dạng câu hỏi, đăng nhập (acc.js) …
+ws.html               Writing & Speaking
+phan-tich.html        phân tích điểm yếu theo dạng câu hỏi
+chinh-ta.html, flashcards.html, go-tu.html, danh-dau.html, mau-cau.html,
+nen.html, forecast.html, dang-writing.html, xep-lop.html, huong-dan.html
+                      các trang luyện tập / tra cứu khác
+cap-nhat.html, cap-nhat.js   trang "Có gì mới" (thêm mục mới vào đầu cap-nhat.js)
+test-1..4.html, tien-do.html ở thư mục gốc   chỉ chuyển hướng sang c20/ (giữ link cũ)
+apps-script/Code.gs   mã Google Apps Script ghi kết quả vào Sheet (dùng chung với web TOEIC)
 ```
 
 GitHub Pages: Settings → Pages → Branch `main`, folder `/ (root)`.
