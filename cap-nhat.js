@@ -1,6 +1,14 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-10-24', date: '24/10/2026',
+    title: 'Audio Listening tải nhanh hơn',
+    items: [
+      'Audio Listening của Cambridge 17, 18, 19, 21 và Vol 7 nhẹ hơn 2–3 lần, mở đề và tua trên điện thoại nhanh hơn, đỡ tốn 4G.',
+      'Giọng đọc vẫn rõ như cũ; lời thoại chạy chữ và nút 📍 vẫn khớp đúng chỗ.'
+    ]
+  },
+  {
     id: '2026-10-22b', date: '22/10/2026',
     title: 'Xem có bao nhiêu bạn đang học cùng',
     items: [
