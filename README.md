@@ -19,7 +19,7 @@ Trang luyện tập cho học viên: 4 test mỗi bộ Cambridge IELTS 17, 18, 1
 - **Writing & Speaking** (`ws.html`): đề Writing Task 1/2 của cả 20 test có bấm giờ, đếm từ, bài mẫu kèm nhận xét giám khảo, gửi bài cho thầy; Speaking Part 1–3 có đọc câu hỏi, ghi âm tự nghe lại, Part 2 bấm giờ 1 phút chuẩn bị + 2 phút nói.
 - **Lời thoại chạy chữ:** câu đang phát được tô vàng; nút ▶ đầu mỗi lượt nói. **📍 ở Listening** phát lại đúng đoạn có đáp án.
 - **❓ Hướng dẫn nhanh** có ảnh minh hoạ cho học viên mới.
-- Audio dùng **bản gốc**, không nén lại.
+- Audio nén MP3 64 kbps mono (giọng vẫn rõ, nhẹ hơn 2–3 lần, tải nhanh hơn trên điện thoại); độ dài và mốc lời thoại giữ nguyên.
 
 ## Học viên dùng được gì
 
