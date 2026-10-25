@@ -1,6 +1,14 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-10-25b', date: '25/10/2026',
+    title: 'Chép chính tả nhiều gấp 5 lần',
+    items: [
+      'Chép chính tả có khoảng 3.300 câu (trước đây khoảng 600): gần như mọi câu trong Listening của Cambridge 17–21, cả 4 Part.',
+      'Mỗi Part giờ có 30–50 câu để luyện, câu ngắn câu dài đủ cả. Câu nào đã làm vẫn giữ điểm cũ.'
+    ]
+  },
+  {
     id: '2026-10-25', date: '25/10/2026',
     title: 'Thanh menu thẳng hàng, mở đề nhanh hơn',
     items: [

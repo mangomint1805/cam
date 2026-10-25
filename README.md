@@ -13,7 +13,7 @@ Trang luyện tập cho học viên: 4 test mỗi bộ Cambridge IELTS 17, 18, 1
 ## Tính năng mới
 - **Tra từ trong bài:** bấm vào bất kỳ từ nào trong bài đọc, câu hỏi, lời thoại để xem nghĩa tiếng Việt, phiên âm và nghe phát âm (tắt khi thi thử). Từ điển rút gọn ~7.400 từ: [en_vn_dic](https://github.com/mduccc/en_vn_dic) (MIT) + bổ sung từ học thuật trong đề.
 - **📊 Phân tích điểm yếu:** gom kết quả cả 5 bộ theo 14 dạng câu hỏi, kèm mẹo và bài luyện đúng dạng.
-- **✍️ Chép chính tả:** ~600 câu cắt từ audio của đề, gõ lại và chấm từng từ.
+- **✍️ Chép chính tả:** ~3.300 câu Listening của Cam 17–21 cắt từ audio của đề (mỗi câu đã được máy nghe lại và đối chiếu lời thoại), gõ lại và chấm từng từ.
 - **🃏 Flashcard** (`flashcards.html`): lưu từ khi bấm tra từ, ôn bằng thẻ lật; dùng chung với web TOEIC.
 - **Tốc độ audio** 0.75x / 1x / 1.25x khi luyện tập; **biểu đồ band** qua các lần làm ở trang Điểm yếu.
 - **Writing & Speaking** (`ws.html`): đề Writing Task 1/2 của cả 20 test có bấm giờ, đếm từ, bài mẫu kèm nhận xét giám khảo, gửi bài cho thầy; Speaking Part 1–3 có đọc câu hỏi, ghi âm tự nghe lại, Part 2 bấm giờ 1 phút chuẩn bị + 2 phút nói.
