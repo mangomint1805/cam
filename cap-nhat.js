@@ -1,6 +1,16 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-10-26', date: '26/10/2026',
+    title: 'IELTS Original Exams VOL 7: đủ 10 đề',
+    items: [
+      'Thêm Test 3 đến Test 10 của bộ đề thi thật VOL 7: mỗi đề đủ Listening 40 câu và Reading 40 câu, chấm điểm ngay, có giải thích tiếng Việt cho từng câu và nút 📍 nghe lại đúng đoạn có đáp án.',
+      'Cả 10 đề VOL 7 giờ có lời thoại chạy chữ theo audio: câu đang phát được tô sáng, bấm ▶ đầu mỗi lượt nói để nghe lại từ đó.',
+      'Trang Chép chính tả có thêm bộ IELTS Original Exams VOL 7 với gần 1.600 câu cắt từ audio của 10 đề, chọn được từng đề và từng Part.'
+    ],
+    link: ['v7/', 'Xem bộ đề VOL 7']
+  },
+  {
     id: '2026-10-25d', date: '25/10/2026',
     title: 'Nhắc đăng nhập để lưu tiến độ',
     items: [

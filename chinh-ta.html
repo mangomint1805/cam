@@ -72,7 +72,7 @@ footer{padding:30px 0 50px;color:var(--dim);font-size:13px}
 
   <div class="pick">
     <label>Bộ đề<select id="sB"></select></label>
-    <label>Test<select id="sT"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+    <label>Test<select id="sT"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label>
     <label>Part<select id="sP"><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
   </div>
 
@@ -83,7 +83,7 @@ footer{padding:30px 0 50px;color:var(--dim);font-size:13px}
 <audio id="au" preload="auto"></audio>
 <script>
 (function(){
-  var BOOKS=[['c21','Cambridge 21'],['c20','Cambridge 20'],['c19','Cambridge 19'],['c18','Cambridge 18'],['c17','Cambridge 17']];
+  var BOOKS=[['c21','Cambridge 21'],['c20','Cambridge 20'],['c19','Cambridge 19'],['c18','Cambridge 18'],['c17','Cambridge 17'],['v7','IELTS Original Exams VOL 7']];
   var sB=document.getElementById('sB'), sT=document.getElementById('sT'), sP=document.getElementById('sP');
   var au=document.getElementById('au'), main=document.getElementById('main'), dots=document.getElementById('dots');
   BOOKS.forEach(function(b){ var o=document.createElement('option'); o.value=b[0]; o.textContent=b[1]; sB.appendChild(o); });
@@ -109,6 +109,12 @@ footer{padding:30px 0 50px;color:var(--dim);font-size:13px}
     lset('cam.dict.b',sB.value); lset('cam.dict.t',sT.value); lset('cam.dict.p',sP.value);
     loadBook(sB.value,function(){
       var d=DATA[sB.value]||{}, ext=(d.ext||'mp3');
+      // số đề theo dữ liệu của từng bộ (Cambridge 4 đề, VOL 7 tới 10 đề)
+      var ts=Object.keys(d).filter(function(k){ return /^\d+$/.test(k); }).sort(function(a,b){ return a-b; });
+      if(ts.length&&ts.join()!==[].map.call(sT.options,function(o){ return o.value; }).join()){
+        var want=sT.value; sT.innerHTML=ts.map(function(k){ return '<option>'+k+'</option>'; }).join('');
+        sT.value=ts.indexOf(want)>=0?want:ts[0];
+      }
       list=((d[sT.value]||{})[sP.value])||[];
       au.src=sB.value+'/audio/t'+sT.value+'-part'+sP.value+'.'+ext;
       cur=0; for(var i=0;i<list.length;i++){ if(!PROG[key(i)]){ cur=i; break; } }

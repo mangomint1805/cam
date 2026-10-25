@@ -154,7 +154,15 @@ footer{padding:30px 0 50px;color:var(--dim);font-size:13px;}
 (function(){
   var TESTS=[
     {n:1, read:['Carnivorous plant', 'Drawing Lessons from History', 'Neanderthal Technology']},
-    {n:2, read:['The early history of olive oil', 'Playing with science', 'Does Class Size Matter?']}
+    {n:2, read:['The early history of olive oil', 'Playing with science', 'Does Class Size Matter?']},
+    {n:3, read:["The development of plastics", "Lean Production Innovation in Manufacturing Systems", "How Does Watching Sport Influence the Brain?"]},
+    {n:4, read:["Rubber", "The Myth of the Eight-hour Sleep", "Living dunes"]},
+    {n:5, read:["Reef fish study", "Will Eating Less Make You Live Longer?", "Saving the Skink"]},
+    {n:6, read:["Deep sea discovery", "Jellyfish – The Dominant Species", "The Pirahã people of Brazil"]},
+    {n:7, read:["The history of the guitar", "Playing soccer", "The History of Chocolate"]},
+    {n:8, read:["Dust and the American West", "Urban Regeneration in Berlin", "The fluoridation controversy"]},
+    {n:9, read:["Dolls through the ages", "Biophilic Design", "Biology of Bitterness"]},
+    {n:10, read:["Wood: a valuable resource in New Zealand’s economy", "Intelligent behaviour in birds", "Jean Piaget (1896–1980)"]}
   ];
   function qty(n,S,r){ var C=window.CAMCATS&&CAMCATS['v7']&&CAMCATS['v7'][n], NM=window.CAMCATNAMES||{}; if(!C) return ''; var ab=r.split('–'), out=[]; for(var q=+ab[0];q<=+ab[1];q++){ var k=C[S+q]; if(k&&out.indexOf(k)<0) out.push(k); } return '<small class="ty">'+out.map(function(k){return NM[k]||k;}).join(' · ')+'</small>'; }
   var LQ=['1–10','11–20','21–30','31–40'], RQ=['1–13','14–26','27–40'];

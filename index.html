@@ -177,7 +177,7 @@ html[data-theme=dark] .nenbar{background:linear-gradient(120deg,#2a2216,#231c12)
   function hi(){ if(name){ var f=name.trim().split(/\s+/).pop(); document.getElementById('hi').innerHTML='Chào <em>'+esc(f)+'</em>, hôm nay luyện gì nhỉ?'; } }
   hi();
   var S=window.MSTATS?MSTATS():{streak:0,bestL:0,bestR:0,subs:0}, all=[];
-  var VOLS=[{id:'v7',n:7,c:'#2f6f6a',nt:2,max:10}];
+  var VOLS=[{id:'v7',n:7,c:'#2f6f6a',nt:10,max:10}];
   BOOKS.forEach(function(b){ (get('cam'+b.n+'.hist')||[]).forEach(function(r){ r.book=b.n; all.push(r); }); });
   VOLS.forEach(function(b){ (get('cam'+b.id+'.hist')||[]).forEach(function(r){ r.book=b.id; all.push(r); }); });
   all.sort(function(a,b){ return (a.t||0)-(b.t||0); });
