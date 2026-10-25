@@ -7,3 +7,4 @@
   - Thay đổi chỉ trong README, code nội bộ hay Apps Script (học viên không thấy) thì không cần thêm.
   - Nếu cùng thay đổi áp dụng cho nhiều web (cam, toeic, summary-old, summary-new), cập nhật patch notes ở tất cả các web đó.
 - Trang làm bài `cN/test-M.html` chỉ chứa nội dung đề và `window.CAMTEST` (mã bộ, tên bộ, đáp án `KEY`, dạng câu `QT`, vị trí đáp án `EV`, giải thích `XP`). Logic chấm điểm, hẹn giờ, gửi kết quả nằm ở `shared/test-core.js`, giao diện ở `shared/test.css`: sửa ở đó, đừng chép code vào từng trang.
+- Firebase Realtime Database (`online/`, `who/`, `log/`) chỉ nhận các trường đã khai báo trong Rules (`"$other": {".validate": false}`). Muốn gửi thêm trường mới thì nhờ thầy thêm vào Rules trước, nếu không Firebase từ chối cả lần ghi. Firestore: luật đang chạy (21/10/2026) đã an toàn, đừng Publish đè bằng `firestore.rules` trong repo mangomint1805.github.io.
