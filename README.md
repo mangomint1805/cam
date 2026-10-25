@@ -45,7 +45,8 @@ Cài đặt một lần: tạo Google Sheet → *Tiện ích mở rộng → App
 index.html            trang chủ: thông tin học viên, chọn bộ đề
 c17/ … c21/           mỗi thư mục là một bộ Cambridge (17–21), bên trong:
   index.html            chọn test / phần / thi thử của bộ đó
-  test-1..4.html        trang làm bài (test-N.html?part=L1 … R3, ?part=L&thi=1 để thi thử)
+  test-1..4.html        nội dung đề + đáp án (window.CAMTEST); phần chạy dùng chung ở shared/test-core.js
+                        (test-N.html?part=L1 … R3, ?part=L&thi=1 để thi thử)
   tien-do.html          tiến độ của học viên
   config.js             link Apps Script nhận kết quả (SCRIPT_URL)
   sync.js               mốc thời gian lời thoại chạy theo audio
@@ -54,7 +55,8 @@ c17/ … c21/           mỗi thư mục là một bộ Cambridge (17–21), bê
   audio/                audio Listening (t1-part1.mp3 …) và phát âm từ vựng (audio/vocab/)
   img-t*/, img-ws/      hình trong đề Listening / Writing
 v7/                   bộ IELTS Original Exams Vol 7 (cùng cấu trúc)
-shared/               code dùng chung cho mọi bộ: menu (ui.js), tra từ (lookup.js, dict.js),
+shared/               code dùng chung cho mọi bộ: trang làm bài (test-core.js, test.css — sửa một lần
+                      là áp dụng cho cả 22 đề), menu (ui.js), tra từ (lookup.js, dict.js),
                       lời thoại chạy chữ (sync.js), tốc độ audio, dạng câu hỏi, đăng nhập (acc.js) …
 ws.html               Writing & Speaking
 phan-tich.html        phân tích điểm yếu theo dạng câu hỏi

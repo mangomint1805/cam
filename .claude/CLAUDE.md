@@ -6,3 +6,4 @@
   - `title` ngắn gọn, `items` viết cho học viên: dễ hiểu, nói lợi ích, không dùng thuật ngữ kỹ thuật.
   - Thay đổi chỉ trong README, code nội bộ hay Apps Script (học viên không thấy) thì không cần thêm.
   - Nếu cùng thay đổi áp dụng cho nhiều web (cam, toeic, summary-old, summary-new), cập nhật patch notes ở tất cả các web đó.
+- Trang làm bài `cN/test-M.html` chỉ chứa nội dung đề và `window.CAMTEST` (mã bộ, tên bộ, đáp án `KEY`, dạng câu `QT`, vị trí đáp án `EV`, giải thích `XP`). Logic chấm điểm, hẹn giờ, gửi kết quả nằm ở `shared/test-core.js`, giao diện ở `shared/test.css`: sửa ở đó, đừng chép code vào từng trang.

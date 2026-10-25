@@ -1,6 +1,14 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-10-25', date: '25/10/2026',
+    title: 'Thanh menu thẳng hàng, mở đề nhanh hơn',
+    items: [
+      'Sửa lỗi thanh menu bị tụt xuống ở trang Có gì mới, Chép chính tả, Phân tích, Flashcard, Hướng dẫn và vài trang khác: giờ mọi trang đều thẳng hàng.',
+      'Trang làm bài gọn hơn: phần chung của các đề chỉ cần tải một lần, mở đề tiếp theo nhanh hơn. Bài làm và kết quả cũ vẫn giữ nguyên.'
+    ]
+  },
+  {
     id: '2026-10-24b', date: '24/10/2026',
     title: 'Phân tích bài làm chi tiết + đề thi thật VOL 7',
     items: [
