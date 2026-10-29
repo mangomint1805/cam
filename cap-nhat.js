@@ -1,6 +1,15 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-10-30b', date: '30/10/2026',
+    title: 'Nhiệm vụ hằng ngày, gợi ý "Làm tiếp" và 7 huy hiệu mới',
+    items: [
+      'Trang chủ có khung 🎯 Nhiệm vụ hôm nay: mỗi ngày 3 việc nhỏ, ví dụ làm 1 phần Listening hoặc Reading, ôn flashcard, chép chính tả. Xong cả 3 được cộng thêm 15 điểm vào bảng xếp hạng tuần.',
+      'Nộp bài xong sẽ có khung 👉 Làm tiếp: gợi ý luyện ngay phần bạn làm yếu nhất (chép chính tả đúng Part đó, hoặc mẹo Reading), ôn flashcard và nhiệm vụ còn lại.',
+      'Thêm 7 huy hiệu: Nhiệm vụ đầu tiên, Chăm chỉ 7 ngày, Kỷ luật thép (30 ngày), Thuộc 50 từ, Sưu tầm 100 từ, Tai thính, Chăm luyện đề. Xem ở mục Huy hiệu trên trang chủ.'
+    ]
+  },
+  {
     id: '2026-10-30', date: '30/10/2026',
     title: 'Flashcard ôn tập thông minh hơn (giống Anki)',
     items: [

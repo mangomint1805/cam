@@ -125,7 +125,10 @@ window.camKq=camKq;
 
 function showScore(s){ var d=state.done[s], el=$('.panel[data-s="'+s+'"] .score'); if(!el) return; if(!d){el.innerHTML='';return;}
   el.innerHTML='Đúng '+d.got+'/'+d.total+(d.total===40?' <span class="band">Band ≈ '+band(s,d.got)+'</span>':'')+
-    ' <button type="button" class="btn alt sm" onclick="camKq(\''+s+'\')">📊 Phân tích chi tiết</button>'+(d.total===40&&window.MSHARE?' <button type="button" class="btn alt sm" onclick="mshareIelts(\''+s+'\')">📸 Lưu ảnh khoe story</button>':'')+'<span class="after">Bấm 📍 cạnh mỗi câu để xem chỗ có đáp án'+(s==='L'?' trong lời thoại':' trong bài đọc')+', bấm 💡 để đọc giải thích tiếng Việt.</span>'; }
+    ' <button type="button" class="btn alt sm" onclick="camKq(\''+s+'\')">📊 Phân tích chi tiết</button>'+(d.total===40&&window.MSHARE?' <button type="button" class="btn alt sm" onclick="mshareIelts(\''+s+'\')">📸 Lưu ảnh khoe story</button>':'')+'<span class="after">Bấm 📍 cạnh mỗi câu để xem chỗ có đáp án'+(s==='L'?' trong lời thoại':' trong bài đọc')+', bấm 💡 để đọc giải thích tiếng Việt.</span>'+nextBox(s); }
+// khung "Làm tiếp" (ui.js): gợi ý theo phần làm yếu nhất của lần nộp gần nhất
+function nextBox(s){ if(!window.MNEXT) return ''; var h=[]; try{ h=JSON.parse(lsGet(BK+'.hist'))||[]; }catch(e){} var rec=null; for(var i=h.length-1;i>=0;i--){ if(h[i].test===+N&&h[i].sec===s){ rec=h[i]; break; } }
+  return window.MNEXT({parts:rec&&rec.byPart||{}, test:+N, book:BK}); }
 
 // ================= 1. lời thoại & vị trí đáp án =================
 function addLocs(s){
@@ -226,7 +229,7 @@ function askName(cb){
 }
 function submit(s,auto){
   var p=$('.panel[data-s="'+s+'"]'); if(!p||state.done[s]) return;
-  var go=function(){ var res=grade(s); logResult(s,res,auto); stopExam(); p.scrollIntoView({behavior:'smooth'}); };
+  var go=function(){ var res=grade(s); logResult(s,res,auto); showScore(s); stopExam(); p.scrollIntoView({behavior:'smooth'}); }; // showScore lần nữa: khung Làm tiếp đọc lần nộp vừa lưu
   if(auto){ go(); return; }
   var miss=qnums(s).filter(function(n){return !answered(s,n);}).length;
   if(miss && !confirm('Còn '+miss+' câu chưa làm. Vẫn nộp bài?')) return;
