@@ -1,6 +1,13 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-10-31', date: '31/10/2026',
+    title: 'Gọn gàng hơn trên điện thoại',
+    items: [
+      'Trên điện thoại màn hình nhỏ, thanh trên cùng không còn bị tràn ra ngoài khi dùng giao diện Sci-fi, Y2K hay Idol: nút Cài đặt luôn bấm được, trang không bị lệch ngang.'
+    ]
+  },
+  {
     id: '2026-10-30d', date: '30/10/2026',
     title: 'Thêm nút bấm hợp phong cách',
     items: [
