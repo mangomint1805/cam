@@ -37,7 +37,7 @@ Trang luyện tập cho học viên: 4 test mỗi bộ Cambridge IELTS 17, 18, 1
 
 Học viên nhập họ tên (và lớp/nhóm) ở trang chủ. Mỗi lần nộp bài, kết quả (phần, chế độ, số câu đúng, band, thời gian, câu sai) được gửi về Google Sheet của giáo viên.
 
-Cài đặt một lần: tạo Google Sheet → *Tiện ích mở rộng → Apps Script* → dán nội dung `apps-script/Code.gs` → chạy `setup` → *Triển khai → Ứng dụng web* (Thực thi: Tôi · Truy cập: Bất kỳ ai) → dán link `/exec` vào `SCRIPT_URL` trong `config.js` của từng bộ (`c17/` … `c21/`, `v7/`). Để trống thì trang không gửi kết quả.
+Cài đặt một lần: tạo Google Sheet → *Tiện ích mở rộng → Apps Script* → dán nội dung `apps-script/Code.gs` → chạy `setup` → *Triển khai → Ứng dụng web* (Thực thi: Tôi · Truy cập: Bất kỳ ai) → dán link `/exec` vào `SCRIPT_URL` trong `config.js` của từng bộ (`c17/` … `c21/`, `v7/`, `v9/`). Để trống thì trang không gửi kết quả.
 
 ## Cấu trúc thư mục
 
@@ -55,6 +55,7 @@ c17/ … c21/           mỗi thư mục là một bộ Cambridge (17–21), bê
   audio/                audio Listening (t1-part1.mp3 …) và phát âm từ vựng (audio/vocab/)
   img-t*/, img-ws/      hình trong đề Listening / Writing
 v7/                   bộ IELTS Original Exams Vol 7 (cùng cấu trúc)
+v9/                   bộ IELTS Original Exams Vol 9 (cùng cấu trúc)
 shared/               code dùng chung cho mọi bộ: trang làm bài (test-core.js, test.css — sửa một lần
                       là áp dụng cho cả 22 đề), menu (ui.js), tra từ (lookup.js, dict.js),
                       lời thoại chạy chữ (sync.js), tốc độ audio, dạng câu hỏi, đăng nhập (acc.js) …

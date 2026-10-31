@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<script>try{var d=document.documentElement,k=JSON.parse(localStorage.getItem('mt.skin')||'""');if(k==='scifi')d.setAttribute('data-theme','dark');if(k)d.setAttribute('data-skin',k)}catch(e){}</script>
+
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#a8691a">
+<link rel="apple-touch-icon" href="../icons/apple-180.png?v=3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Tiến độ · IELTS Original Exams · VOL 9</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--paper:#faf8f4;--card:#fff;--line:#ddd7c9;--ink:#1e232b;--dim:#666e7a;--panel2:#f2efe8;
+  --amber:#a8691a;--amber-soft:#f2e2c4;--amber-ink:#6b4410;--teal:#1f8f6c;--teal-soft:#e1f4ec;--grid:#e9e4d8}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{padding:44px 0 14px}
+.kicker{color:var(--amber);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px}
+.kicker a{color:inherit;text-decoration:none}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(30px,6vw,42px);line-height:1.1;margin:0 0 8px}
+header p{margin:0;color:var(--dim)}
+h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:22px;margin:30px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.tile small{display:block;color:var(--dim);font-size:13px}
+.tile b{display:block;font-family:'Fraunces',Georgia,serif;font-size:30px;font-weight:600;line-height:1.2}
+.tile i{font-style:normal;font-size:13px;color:var(--dim)}
+.legend{display:flex;gap:16px;font-size:13.5px;color:var(--dim);margin:0 0 6px}
+.legend span::before{content:"";display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--c)}
+.chartbox{position:relative}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:12.5px;border-radius:6px;padding:6px 9px;white-space:nowrap;transform:translate(-50%,-110%);display:none}
+.empty{color:var(--dim);font-size:15px;margin:6px 0}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--dim);font-weight:600;font-size:13px}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font-size:12px;font-weight:700;border-radius:4px;padding:0 6px}
+.tag.thi{background:var(--amber-soft);color:var(--amber-ink)}
+.tag.lt{background:var(--panel2);color:var(--dim)}
+.matrix td,.matrix th{text-align:center}
+.matrix td:first-child,.matrix th:first-child{text-align:left}
+.cell{display:inline-block;min-width:54px;border-radius:5px;padding:2px 6px;font-weight:600;font-size:13px}
+.c-hi{background:var(--teal-soft);color:var(--teal)} .c-mid{background:#fdf3dc;color:#8a5a12} .c-lo{background:#fbe6e2;color:#b3352f} .c-no{color:#b9b2a3}
+.tablewrap{overflow-x:auto}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{font:inherit;font-weight:600;font-size:14px;border:1px solid var(--amber);border-radius:4px;padding:8px 14px;cursor:pointer;background:#fff;color:var(--amber-ink);text-decoration:none}
+footer{padding:30px 0 50px;color:var(--dim);font-size:13px}
+@media (max-width:700px){table.matrix{display:block;overflow-x:auto;max-width:100%}}
+</style>
+<link rel="icon" type="image/png" href="../icons/fav-64.png?v=3">
+</head>
+<body data-nav="">
+<div class="wrap">
+  <header>
+    <p class="kicker"><a href="index.html">← IELTS Original Exams · VOL 9</a></p>
+    <h1>Tiến độ của bạn</h1>
+    <p id="who">Kết quả các lần làm bài trên máy này.</p>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <h2>Band qua các lần làm cả phần</h2>
+  <div class="card">
+    <div class="legend"><span style="--c:#a8691a">Listening</span><span style="--c:#1f8f6c">Reading</span></div>
+    <div class="chartbox" id="chartbox"><svg id="chart" viewBox="0 0 800 260" role="img" aria-label="Biểu đồ band Listening và Reading qua các lần làm"></svg><div class="tip" id="tip"></div></div>
+    <p class="empty" id="chartEmpty" hidden>Chưa có lần làm cả phần Listening hoặc Reading (40 câu). Làm xong một phần đầy đủ là biểu đồ sẽ hiện ở đây.</p>
+  </div>
+
+  <h2>Điểm cao nhất từng phần</h2>
+  <div class="card tablewrap"><table class="matrix" id="matrix"></table></div>
+
+  <h2>Lịch sử làm bài</h2>
+  <div class="card tablewrap"><table id="hist"></table><p class="empty" id="histEmpty" hidden>Chưa có lần làm bài nào.</p>
+    <div class="row"><a class="btn" href="index.html">Làm bài tiếp</a><button class="btn" id="clear" type="button">Xoá lịch sử trên máy này</button></div></div>
+
+  <footer>Lịch sử chỉ lưu trên máy và trình duyệt này. Band là ước tính theo thang điểm thường dùng.</footer>
+</div>
+<script>
+(function(){
+  function get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
+  var H=get('camv9.hist')||[];
+  var name=null; try{ name=localStorage.getItem('cam20.name'); }catch(e){}
+  if(name) document.getElementById('who').textContent='Kết quả các lần làm bài của '+name+' trên máy này.';
+  function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function partName(r){ var p=r.part||r.sec; if(p.length===2) return (p[0]==='L'?'Listening Part ':'Reading Passage ')+p[1]; return p==='L'?'Listening (cả phần)':'Reading (cả phần)'; }
+  function d2(n){ return (n<10?'0':'')+n; }
+  function when(t){ var d=new Date(t); return d2(d.getDate())+'/'+d2(d.getMonth()+1)+' '+d2(d.getHours())+':'+d2(d.getMinutes()); }
+  function mins(s){ s=s||0; return Math.floor(s/60)+'′'+d2(s%60); }
+
+  // ---- ô số liệu ----
+  var full=H.filter(function(r){ return r.total===40; });
+  function best(sec){ var b=null; full.forEach(function(r){ if(r.sec===sec && typeof r.band==='number' && (b===null||r.band>b)) b=r.band; }); return b; }
+  function last(sec){ for(var i=full.length-1;i>=0;i--) if(full[i].sec===sec && typeof full[i].band==='number') return full[i].band; return null; }
+  var tiles=[
+    ['Số lần làm bài', H.length, 'tính cả từng part / passage'],
+    ['Listening gần nhất', last('L')!==null?last('L'):'—', best('L')!==null?'cao nhất '+best('L'):'chưa làm cả phần'],
+    ['Reading gần nhất', last('R')!==null?last('R'):'—', best('R')!==null?'cao nhất '+best('R'):'chưa làm cả phần'],
+    ['Tỉ lệ đúng trung bình', H.length?Math.round(H.reduce(function(a,r){return a+r.got/r.total;},0)/H.length*100)+'%':'—', 'trên tất cả các lần làm']
+  ];
+  document.getElementById('tiles').innerHTML=tiles.map(function(t){ return '<div class="tile"><small>'+t[0]+'</small><b>'+t[1]+'</b><i>'+t[2]+'</i></div>'; }).join('');
+
+  // ---- biểu đồ band ----
+  var pts=full.filter(function(r){ return typeof r.band==='number'; });
+  var svg=document.getElementById('chart'), tip=document.getElementById('tip');
+  if(!pts.length){ document.getElementById('chartbox').hidden=true; document.getElementById('chartEmpty').hidden=false; }
+  else{
+    var W=800,Hh=260,L=40,R=16,T=12,B=30, n=pts.length, ymin=0, ymax=9;
+    var x=function(i){ return n===1?L+(W-L-R)/2:L+i*(W-L-R)/(n-1); }, y=function(v){ return T+(1-(v-ymin)/(ymax-ymin))*(Hh-T-B); };
+    var g='';
+    for(var v=0;v<=9;v+=1.5){ g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="#e9e4d8" stroke-width="1"/><text x="'+(L-8)+'" y="'+(y(v)+4)+'" font-size="12" fill="#666e7a" text-anchor="end">'+v+'</text>'; }
+    pts.forEach(function(r,i){ if(n<=12||i%Math.ceil(n/12)===0) g+='<text x="'+x(i)+'" y="'+(Hh-8)+'" font-size="11.5" fill="#666e7a" text-anchor="middle">Lần '+(i+1)+'</text>'; });
+    var COL={L:'#a8691a',R:'#1f8f6c'};
+    ['L','R'].forEach(function(s){
+      var idx=[]; pts.forEach(function(r,i){ if(r.sec===s) idx.push(i); }); if(!idx.length) return;
+      if(idx.length>1) g+='<polyline fill="none" stroke="'+COL[s]+'" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="'+idx.map(function(i){return x(i)+','+y(pts[i].band);}).join(' ')+'"/>';
+      idx.forEach(function(i){ var r=pts[i]; g+='<circle cx="'+x(i)+'" cy="'+y(r.band)+'" r="5" fill="'+COL[s]+'" stroke="#fff" stroke-width="2"/>'+
+        '<circle class="hit" cx="'+x(i)+'" cy="'+y(r.band)+'" r="14" fill="transparent" data-i="'+i+'"/>'; });
+      var li=idx[idx.length-1]; g+='<text x="'+Math.min(W-R-4,x(li)+10)+'" y="'+(y(pts[li].band)-10)+'" font-size="12" fill="#1e232b" text-anchor="'+(x(li)>W-80?'end':'start')+'">'+(s==='L'?'Listening ':'Reading ')+pts[li].band+'</text>';
+    });
+    svg.innerHTML=g;
+    svg.addEventListener('mousemove',function(e){ var c=e.target.closest('.hit'); if(!c){ tip.style.display='none'; return; }
+      var r=pts[+c.getAttribute('data-i')], bx=svg.getBoundingClientRect(), sc=bx.width/W;
+      tip.innerHTML='<b>'+(r.sec==='L'?'Listening':'Reading')+' · Test '+r.test+'</b><br>Band '+r.band+' · '+r.got+'/40'+(r.exam?' · thi thử':'')+'<br>'+when(r.t);
+      tip.style.left=(+c.getAttribute('cx')*sc)+'px'; tip.style.top=(+c.getAttribute('cy')*sc)+'px'; tip.style.display='block'; });
+    svg.addEventListener('mouseleave',function(){ tip.style.display='none'; });
+  }
+
+  // ---- bảng điểm cao nhất ----
+  var cols=[['L1','Part 1',10],['L2','Part 2',10],['L3','Part 3',10],['L4','Part 4',10],['R1','Passage 1',13],['R2','Passage 2',13],['R3','Passage 3',14]];
+  function bestPart(t,p){ var b=null; H.forEach(function(r){ if(r.test!==t) return;
+      var got=null;
+      if((r.part||r.sec)===p) got=r.got;
+      else if(r.byPart&&r.byPart[p]&&r.byPart[p][1]===({L1:10,L2:10,L3:10,L4:10,R1:13,R2:13,R3:14})[p]) got=r.byPart[p][0];
+      if(got!==null && (b===null||got>b)) b=got; }); return b; }
+  var m='<tr><th>Test</th>'+cols.map(function(c){return '<th>'+c[1]+'</th>';}).join('')+'</tr>';
+  [1,2,3,4].forEach(function(t){ m+='<tr><td><a href="test-'+t+'.html">Test '+t+'</a></td>'+cols.map(function(c){ var b=bestPart(t,c[0]);
+      if(b===null) return '<td><span class="cell c-no">—</span></td>'; var p=b/c[2], k=p>=.7?'c-hi':p>=.5?'c-mid':'c-lo';
+      return '<td><a href="test-'+t+'.html?part='+c[0]+'" style="text-decoration:none"><span class="cell '+k+'">'+b+'/'+c[2]+'</span></a></td>'; }).join('')+'</tr>'; });
+  document.getElementById('matrix').innerHTML=m;
+
+  // ---- lịch sử ----
+  if(!H.length){ document.getElementById('hist').hidden=true; document.getElementById('histEmpty').hidden=false; }
+  else{
+    var h='<tr><th>Thời gian</th><th>Bài</th><th>Chế độ</th><th>Điểm</th><th>Band</th><th>Thời gian làm</th><th>Câu sai</th></tr>';
+    H.slice().reverse().forEach(function(r){
+      h+='<tr><td class="num">'+when(r.t)+'</td><td>Test '+r.test+' · '+esc(partName(r))+'</td><td><span class="tag '+(r.exam?'thi':'lt')+'">'+(r.exam?'Thi thử':'Luyện tập')+'</span></td>'+
+        '<td class="num">'+r.got+'/'+r.total+'</td><td class="num">'+(r.band!==''&&r.band!=null?r.band:'—')+'</td><td class="num">'+mins(r.secs)+'</td><td>'+(r.wrong&&r.wrong.length?r.wrong.join(', '):'—')+'</td></tr>'; });
+    document.getElementById('hist').innerHTML=h;
+  }
+  document.getElementById('clear').onclick=function(){ if(confirm('Xoá toàn bộ lịch sử làm bài trên máy này? (Bài đang làm dở không bị xoá)')){ try{ localStorage.removeItem('camv9.hist'); }catch(e){} location.reload(); } };
+})();
+</script>
+<script>if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js',{scope:'../'}).catch(function(){});});</script>
+<script src="../shared/ui.js?v=13"></script>
+</body>
+</html>

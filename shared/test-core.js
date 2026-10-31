@@ -1,4 +1,4 @@
-/* Trang làm bài Cambridge IELTS — code dùng chung cho mọi đề (c17–c21, v7).
+/* Trang làm bài Cambridge IELTS — code dùng chung cho mọi đề (c17–c21, v7, v9).
    Mỗi trang test-N.html khai báo window.CAMTEST = {book, label, short, d:{KEY, QT, EV, XP, N}} rồi nạp file này.
    Sửa ở đây là áp dụng cho cả 22 đề. */
 

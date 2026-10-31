@@ -88,7 +88,7 @@ footer{padding:30px 0 50px;color:var(--dim);font-size:13px}
 <script src="shared/cats.js"></script>
 <script>
 (function(){
-  var BOOKS=[['v7','v7'],['c21',21],['c20',20],['c19',19],['c18',18],['c17',17]];
+  var BOOKS=[['v7','v7'],['v9','v9'],['c21',21],['c20',20],['c19',19],['c18',18],['c17',17]];
   var C=window.CAMCATS||{}, NM=window.CAMCATNAMES||{};
   var TIP={
     tfng:'<b>TRUE</b> = bài nói đúng ý đó (thường bằng từ đồng nghĩa). <b>FALSE</b> = bài nói <b>ngược lại</b>. <b>NOT GIVEN</b> = bài có nhắc chủ đề nhưng <b>không nói</b> tới ý đó. Đừng dùng hiểu biết bên ngoài.',
@@ -184,7 +184,7 @@ footer{padding:30px 0 50px;color:var(--dim);font-size:13px}
   var RB=[[39,9],[37,8.5],[35,8],[33,7.5],[30,7],[27,6.5],[23,6],[19,5.5],[15,5],[13,4.5],[10,4],[8,3.5],[6,3],[4,2.5],[0,0]];
   function band(t,g){ for(var i=0;i<t.length;i++) if(g>=t[i][0]) return t[i][1]; return 0; }
   var all=[];
-  ['v7',21,20,19,18,17].forEach(function(b){ (get('cam'+b+'.hist')||[]).forEach(function(r){ if(r&&r.total===40&&(r.sec==='L'||r.sec==='R')) all.push({t:r.t||0,s:r.sec,b:band(r.sec==='L'?LB:RB,r.got),lab:(b==='v7'?'VOL7':'Cam '+b)+' T'+r.test}); }); });
+  ['v7','v9',21,20,19,18,17].forEach(function(b){ (get('cam'+b+'.hist')||[]).forEach(function(r){ if(r&&r.total===40&&(r.sec==='L'||r.sec==='R')) all.push({t:r.t||0,s:r.sec,b:band(r.sec==='L'?LB:RB,r.got),lab:(/^v/.test(b)?'VOL'+String(b).slice(1):'Cam '+b)+' T'+r.test}); }); });
   all.sort(function(a,b){ return a.t-b.t; });
   var L=all.filter(function(x){return x.s==='L';}), R=all.filter(function(x){return x.s==='R';}), el=document.getElementById('pchart');
   if(!all.length){ el.innerHTML='<p class="psub">Chưa có lần làm cả bài Listening hoặc Reading nào. Làm "Cả Listening" / "Cả Reading" hoặc thi thử để thấy biểu đồ.</p>'; return; }

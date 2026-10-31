@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<script>try{var d=document.documentElement,k=JSON.parse(localStorage.getItem('mt.skin')||'""');if(k==='scifi')d.setAttribute('data-theme','dark');if(k)d.setAttribute('data-skin',k)}catch(e){}</script>
+
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#a8691a">
+<link rel="apple-touch-icon" href="../icons/apple-180.png?v=3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>IELTS Original Exams VOL 9 · Luyện tập</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#faf8f4; --card:#ffffff; --line:#ddd7c9; --ink:#1e232b; --dim:#666e7a; --panel2:#f2efe8;
+  --amber:#a8691a; --amber-soft:#f2e2c4; --amber-ink:#6b4410; --teal:#1f8f6c; --teal-soft:#e1f4ec;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.55;}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+header{padding:52px 0 22px;}
+.kicker{color:var(--amber);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px;}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:clamp(32px,6vw,46px);line-height:1.1;margin:0 0 12px;letter-spacing:-.01em;}
+header p{margin:0;color:var(--dim);font-size:16px;max-width:54ch;}
+
+/* course path */
+.path{list-style:none;margin:10px 0 0;padding:0;position:relative;}
+.path::before{content:"";position:absolute;left:27px;top:14px;bottom:14px;width:2px;background:var(--line);}
+.stop{position:relative;display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start;padding:12px 0;}
+.dot{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;background:var(--amber-soft);border:2px solid var(--amber);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--amber-ink);}
+.dot small{font-size:10.5px;line-height:1;}
+.dot b{font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:600;line-height:1.1;}
+.stop.done .dot{background:var(--teal-soft);border-color:var(--teal);color:var(--teal);}
+.body{padding-top:4px;min-width:0;}
+.name{display:block;font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:600;margin:0;}
+.meta{display:block;font-size:14px;color:var(--dim);margin:2px 0 0;}
+
+.go{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;text-decoration:none;color:var(--ink);
+  background:var(--card);border:1.5px solid var(--amber);border-radius:10px;padding:12px 16px;min-height:52px;}
+.go:hover{background:var(--amber-soft);}
+.go:focus-visible,.chip:focus-visible{outline:3px solid var(--amber);outline-offset:2px;}
+.go span{font-weight:700;color:var(--amber-ink);}
+.go i{font-style:normal;font-size:13.5px;color:var(--dim);text-align:right;}
+.go2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.go2 .go{margin-top:8px;}
+
+.sub{margin:14px 0 4px;font-size:13px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{display:inline-flex;flex-direction:column;text-decoration:none;color:var(--ink);background:var(--panel2);border:1px solid var(--line);
+  border-radius:6px;padding:7px 11px;min-width:92px;font-size:14px;line-height:1.3;}
+.chip:hover{border-color:var(--amber);background:var(--amber-soft);}
+.chip b{font-weight:600;}
+.chip small{color:var(--dim);font-size:12px;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.chip .res,.go .res{font-style:normal;display:inline-block;margin-top:3px;font-size:12px;font-weight:700;color:var(--teal);}
+.chips.read .chip{flex:1 1 180px;}
+
+.me{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:flex-end;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 10px}
+.me label{display:flex;flex-direction:column;font-size:13px;font-weight:600;color:var(--dim);flex:1 1 160px}
+.me input{font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--panel2);color:var(--ink);margin-top:3px}
+.me .ok{font-size:13px;color:var(--teal);font-weight:600;min-width:70px}
+.me a{font-weight:700;color:var(--amber-ink);text-decoration:none;white-space:nowrap;padding:8px 0}
+.go.exam{border-style:dashed}
+.books{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
+.books a{text-decoration:none;font-size:14px;font-weight:700;padding:7px 14px;border-radius:999px;border:1.5px solid var(--amber);color:var(--amber-ink);background:var(--card)}
+.books a[aria-current]{background:var(--amber);color:#fff}
+.books a:first-child{border-color:transparent;padding-left:2px}
+.books a:first-child{border-color:transparent;padding-left:2px}
+.books a:first-child{border-color:transparent;padding-left:2px}
+.books a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.noaudio-note{font-size:13px;color:var(--dim)}
+.head{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:12px;width:100%;cursor:pointer;border-radius:10px;padding:2px 0}
+.head:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
+.head .ht{flex:1;min-width:0}
+.head .prog{display:inline-block;margin-top:4px;font-size:12.5px;font-weight:700;color:var(--teal);background:var(--teal-soft);border-radius:999px;padding:1px 9px}
+.chev{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--amber-ink);transition:transform .25s ease,background .2s,border-color .2s}
+.head:hover .chev{background:var(--amber-soft);border-color:var(--amber)}
+.stop.open .chev{transform:rotate(180deg);background:var(--amber-soft);border-color:var(--amber)}
+.dot{cursor:pointer}
+.more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.stop.open .more{grid-template-rows:1fr}
+.more>.inner{overflow:hidden;min-height:0}
+.more>.inner>:first-child{margin-top:12px}
+.stop:not(.open) .more{visibility:hidden;transition:grid-template-rows .3s ease,visibility 0s .3s}
+.toggle-all{all:unset;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--amber-ink);padding:6px 0;display:inline-block;margin:6px 0 0}
+.toggle-all:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){.more,.chev{transition:none}}
+.tips{margin:40px 0 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;}
+.tips h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:21px;margin:0 0 8px;}
+.tips ul{margin:0;padding-left:20px;}
+.tips li{margin:6px 0;font-size:15px;}
+footer{padding:30px 0 50px;color:var(--dim);font-size:13px;}
+
+@media (max-width:520px){
+  header{padding:36px 0 16px;}
+  .path::before{left:23px;}
+  .stop{grid-template-columns:48px 1fr;gap:12px;}
+  .dot{width:48px;height:48px;}
+  .dot b{font-size:18px;}
+  .go2{grid-template-columns:1fr;}
+  .go{flex-direction:column;align-items:flex-start;gap:2px;}
+  .go i{text-align:left;}
+}
+@media (prefers-reduced-motion:no-preference){
+  .stop .dot{animation:pulse 2.4s ease-out 1;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(168,105,26,.35);}100%{box-shadow:0 0 0 14px rgba(168,105,26,0);}}
+}
+.chip small.ty{color:var(--brand-ink,#6b4410);font-size:11.5px;margin-top:2px;line-height:1.35;white-space:normal;overflow:visible;text-overflow:clip;max-width:none}
+</style>
+<link rel="icon" type="image/png" href="../icons/fav-64.png?v=3">
+</head>
+<body data-nav="home">
+<div class="wrap">
+  <header>
+    <nav class="books" aria-label="Chọn bộ sách"><a href="../">← Tất cả bộ đề</a><a href="./" aria-current="page">Original Exams VOL 9</a><a href="../c21/">Cambridge 21</a><a href="../c20/">Cambridge 20</a></nav>
+    <p class="kicker">IELTS Academic · Đề thi thật (recall) · Luyện tập tự chấm</p>
+    <h1>IELTS Original Exams · VOL 9</h1>
+    <p>Chọn một test để làm cả bài, hoặc làm riêng từng Part Listening / từng Passage Reading. Nộp bài là có điểm và đáp án ngay.</p>
+  </header>
+
+  <div class="me" id="me">
+    <label>Họ và tên<input id="meName" autocomplete="name" placeholder="Để thầy nhận được kết quả"></label>
+    <label>Lớp / nhóm<input id="meLop" placeholder="(nếu có)"></label>
+    <span class="ok" id="meOk"></span>
+    <a href="tien-do.html">📈 Tiến độ</a><a href="../phan-tich.html">📊 Điểm yếu</a><a href="../huong-dan.html">❓ Hướng dẫn</a>
+  </div>
+
+  <button type="button" class="toggle-all" id="togAll">Mở tất cả ▾</button>
+  <ol class="path" id="path"></ol>
+
+  <section class="tips">
+    <h2>Trước khi làm bài</h2>
+    <ul>
+      <li>Làm được trên máy tính hoặc điện thoại. Phần nghe thì chuẩn bị tai nghe.</li>
+      <li><b>Listening</b>: bấm ▶ ở đầu mỗi Part rồi vừa nghe vừa điền. Thi thật chỉ được nghe một lần, cố gắng đừng tua lại.</li>
+      <li><b>Reading</b>: thi thật có 60 phút cho 3 passage, tức khoảng 20 phút mỗi passage.</li>
+      <li>Bấm <b>Nộp bài &amp; chấm điểm</b>: câu đúng tô xanh, câu sai tô đỏ kèm đáp án. Làm cả phần 40 câu sẽ có thêm band ước tính.</li>
+      <li><b>Thi thử</b>: Listening phát liền 4 part, mỗi part nghe một lần; Reading đếm ngược 60 phút. Hết giờ bài tự nộp.</li>
+      <li>Bấm vào từng test để mở danh sách bài làm.</li>
+      <li>Nộp bài xong, bấm <b>📍</b> cạnh mỗi câu để xem lời thoại hoặc câu trong bài đọc có chứa đáp án, bấm <b>💡</b> để đọc giải thích tiếng Việt.</li>
+      <li>Trong bài đọc, bấm vào <b>từ gạch chân</b> để xem nghĩa; bôi đen chữ để <b>tô vàng / ghi chú</b>; bấm <b>🃏 Từ vựng</b> để học flashcard của passage đó.</li>
+      <li>Nhập tên ở đầu trang để kết quả được gửi cho thầy. Bài làm tự lưu trên máy, điểm hiện ngay trên trang chủ và trang <a href="tien-do.html">Tiến độ</a>.</li>
+    </ul>
+  </section>
+
+  <footer>IELTS Original Exams VOL 9 · Tài liệu luyện tập cho học viên.</footer>
+</div>
+<script src="../shared/cats.js"></script>
+<script>
+(function(){
+  var TESTS=[
+    {n:1, read:['The Baobabs of Madagascar', 'Coins – the first form of money', 'Creating a Better Grapefruit']},
+    {n:2, read:['Andrew Carnegie: industrialist and philanthropist', 'Translating: a key to international understanding?', 'The mystery of Easter Island']},
+    {n:3, read:['New understanding of giraffes in the wild', 'Healthy buildings, productive people', 'Child’s Play in Medieval England']},
+    {n:4, read:["Traditional Farming in Zambia's Luapula Province", 'Babies cry in their mother tongue', 'Ancient Rome: the early history of the city']},
+    {n:5, read:['The origins of tennis', 'John Ray and the Study of Plants', 'Sir Francis Ronalds 1788 – 1873']},
+    {n:6, read:['Health in the wild', 'Speaking of nothing', 'Changes to the Soviet Union’s working week']},
+    {n:7, read:['Seaweed', 'The history of Celtic language', 'The psychology of new product adoption']},
+    {n:8, read:["Australia's Airborne Dentists", 'Public art programs: research update', '200 Years of Australian Landscapes at the Royal Academy']},
+    {n:9, read:['Cranberry Fruit', 'Dark Chocolate’s Health-giving Benefits', 'All in the family']}
+  ];
+  function qty(n,S,r){ var C=window.CAMCATS&&CAMCATS['v9']&&CAMCATS['v9'][n], NM=window.CAMCATNAMES||{}; if(!C) return ''; var ab=r.split('–'), out=[]; for(var q=+ab[0];q<=+ab[1];q++){ var k=C[S+q]; if(k&&out.indexOf(k)<0) out.push(k); } return '<small class="ty">'+out.map(function(k){return NM[k]||k;}).join(' · ')+'</small>'; }
+  var LQ=['1–10','11–20','21–30','31–40'], RQ=['1–13','14–26','27–40'];
+  function st(key){ try{ return JSON.parse(localStorage.getItem(key)); }catch(e){ return null; } }
+  function res(key,s){ var x=st(key); var d=x&&x.done&&x.done[s]; return d?'<em class="res">✓ '+d.got+'/'+d.total+'</em>':''; }
+  function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  var html='';
+  TESTS.forEach(function(t){
+    var full=st('camv9.t'+t.n), done=full&&full.done&&full.done.L&&full.done.R;
+    var url='test-'+t.n+'.html';
+    var cnt=0; ['','.L','.R','.L.thi','.R.thi','.L1','.L2','.L3','.L4','.R1','.R2','.R3'].forEach(function(m){ var x=st('camv9.t'+t.n+m); if(x&&x.done) cnt+=Object.keys(x.done).length; });
+    html+='<li class="stop'+(done?' done':'')+'" data-n="'+t.n+'"><div class="dot" aria-hidden="true"><small>Test</small><b>'+t.n+'</b></div><div class="body">'+
+      '<button type="button" class="head" aria-expanded="false" aria-controls="more'+t.n+'"><span class="ht"><span class="name">Test '+t.n+'</span><span class="meta">Listening 40 câu · Reading 40 câu</span>'+(cnt?'<span class="prog">✓ Đã làm '+cnt+' bài</span>':'')+'</span>'+
+      '<span class="chev" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>'+
+      '<div class="more" id="more'+t.n+'"><div class="inner">'+
+      '<a class="go" href="'+url+'"><span>Làm cả bài</span><i>Listening + Reading'+(done?'<br>'+res('camv9.t'+t.n,'L').replace('✓ ','✓ L ')+' '+res('camv9.t'+t.n,'R').replace('✓ ','✓ R '):'')+'</i></a>'+
+      '<div class="go2">'+
+        '<a class="go" href="'+url+'?part=L"><span>🎧 Cả Listening</span><i>4 part · khoảng 30 phút'+(res('camv9.t'+t.n+'.L','L')?'<br>'+res('camv9.t'+t.n+'.L','L'):'')+'</i></a>'+
+        '<a class="go" href="'+url+'?part=R"><span>📖 Cả Reading</span><i>3 passage · 60 phút'+(res('camv9.t'+t.n+'.R','R')?'<br>'+res('camv9.t'+t.n+'.R','R'):'')+'</i></a>'+
+      '</div>'+
+      '<div class="go2">'+
+        ('<a class="go exam" href="'+url+'?part=L&thi=1"><span>⏱ Thi thử Listening</span><i>nghe 1 lần · tự nộp'+(res('camv9.t'+t.n+'.L.thi','L')?'<br>'+res('camv9.t'+t.n+'.L.thi','L'):'')+'</i></a>')+
+        '<a class="go exam" href="'+url+'?part=R&thi=1"><span>⏱ Thi thử Reading</span><i>đếm ngược 60 phút'+(res('camv9.t'+t.n+'.R.thi','R')?'<br>'+res('camv9.t'+t.n+'.R.thi','R'):'')+'</i></a>'+
+      '</div>'+
+      '<p class="sub">Làm riêng từng Part Listening</p><div class="chips">'+
+        LQ.map(function(q,i){ return '<a class="chip" href="'+url+'?part=L'+(i+1)+'"><b>Part '+(i+1)+'</b><small>Câu '+q+'</small>'+qty(t.n,'L',q)+res('camv9.t'+t.n+'.L'+(i+1),'L')+'</a>'; }).join('')+
+      '</div>'+
+      '<p class="sub">Làm riêng từng Passage Reading</p><div class="chips read">'+
+        t.read.map(function(title,i){ return '<a class="chip" href="'+url+'?part=R'+(i+1)+'"><b>Passage '+(i+1)+' · Câu '+RQ[i]+'</b><small>'+esc(title)+'</small>'+qty(t.n,'R',RQ[i])+res('camv9.t'+t.n+'.R'+(i+1),'R')+'</a>'; }).join('')+
+      '</div>'+
+    '</div></div></div></li>';
+  });
+  document.getElementById('path').innerHTML=html;
+  var OPEN=[]; try{ OPEN=JSON.parse(localStorage.getItem('camv9.open'))||[]; }catch(e){}
+  var stops=[].slice.call(document.querySelectorAll('#path .stop')), tog=document.getElementById('togAll');
+  function setOpen(li,on){ li.classList.toggle('open',on); li.querySelector('.head').setAttribute('aria-expanded',on?'true':'false'); }
+  function sync(){ var o=stops.filter(function(li){return li.classList.contains('open');}).map(function(li){return +li.dataset.n;});
+    try{ localStorage.setItem('camv9.open',JSON.stringify(o)); }catch(e){}
+    tog.textContent=o.length===stops.length?'Thu gọn tất cả ▴':'Mở tất cả ▾'; }
+  stops.forEach(function(li){ setOpen(li,OPEN.indexOf(+li.dataset.n)>=0);
+    var f=function(){ setOpen(li,!li.classList.contains('open')); sync(); };
+    li.querySelector('.head').onclick=f; li.querySelector('.dot').onclick=f; });
+  tog.onclick=function(){ var all=stops.every(function(li){return li.classList.contains('open');}); stops.forEach(function(li){setOpen(li,!all);}); sync(); };
+  sync();
+  var nm=document.getElementById('meName'), lp=document.getElementById('meLop'), ok=document.getElementById('meOk'), t0;
+  try{ nm.value=localStorage.getItem('cam20.name')||''; lp.value=localStorage.getItem('cam20.lop')||''; }catch(e){}
+  function keep(){ try{ localStorage.setItem('cam20.name',nm.value.trim()); localStorage.setItem('cam20.lop',lp.value.trim()); }catch(e){} ok.textContent='Đã lưu ✓'; clearTimeout(t0); t0=setTimeout(function(){ok.textContent='';},1500); }
+  nm.addEventListener('change',keep); lp.addEventListener('change',keep);
+})();
+</script>
+<script>if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('../sw.js',{scope:'../'}).catch(function(){});});</script>
+<script src="../shared/ui.js?v=13"></script>
+</body>
+</html>
