@@ -1,6 +1,15 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-11-01d', date: '01/11/2026',
+    title: 'Sửa đáp án một số câu VOL 6, 8, 9',
+    items: [
+      'Thầy đã soát lại các câu mà đáp án trong sách in nhầm (VOL 6, VOL 8 Test 1, VOL 9): nay chấm theo đúng bài đọc và lời thoại, phần giải thích 💡 cũng được viết lại cho rõ.',
+      'Các câu sách thiếu đáp án (VOL 6 Test 3 câu 32, Test 5 câu 11–13, VOL 9 Test 3 câu 40) đã có đáp án và được tính điểm như bình thường.',
+      'Nếu trước đây bạn đã làm các đề này, điểm cũ có thể lệch 1–2 câu; làm lại để xem điểm chính xác nhé.'
+    ]
+  },
+  {
     id: '2026-11-01c', date: '01/11/2026',
     title: 'Thêm bộ đề IELTS Original Exams VOL 6',
     items: [
