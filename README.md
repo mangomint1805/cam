@@ -17,7 +17,7 @@ Trang luyện tập cho học viên: 4 test mỗi bộ Cambridge IELTS 17, 18, 1
 - **🃏 Flashcard** (`flashcards.html`): lưu từ khi bấm tra từ, ôn bằng thẻ lật; dùng chung với web TOEIC.
 - **Tốc độ audio** 0.75x / 1x / 1.25x khi luyện tập; **biểu đồ band** qua các lần làm ở trang Điểm yếu.
 - **Writing & Speaking** (`ws.html`): đề Writing Task 1/2 của cả 20 test có bấm giờ, đếm từ, bài mẫu kèm nhận xét giám khảo, gửi bài cho thầy; Speaking Part 1–3 có đọc câu hỏi, ghi âm tự nghe lại, Part 2 bấm giờ 1 phút chuẩn bị + 2 phút nói.
-- **Đề Speaking & Writing 2025** (`de-2025.html`): câu hỏi Speaking Part 1, Part 2 kèm Part 3 và đề Writing Task 1 (có hình) / Task 2 thí sinh báo lại 9/2024–8/2025 — chỉ đề, không bài mẫu; tìm kiếm, lọc theo quý / dạng biểu đồ / chủ đề, bốc thăm câu hỏi, bấm giờ Part 2 và Writing. Dữ liệu ở `shared/de-2025.js`, hình ở `de-2025/`.
+- **Đề Speaking & Writing 2025** (`de-2025.html`): câu hỏi Speaking Part 1, Part 2 kèm Part 3 và đề Writing Task 1 (có hình) / Task 2 thí sinh báo lại 9/2024–8/2025 — chỉ đề, không bài mẫu; tìm kiếm, lọc theo quý / dạng biểu đồ / chủ đề, bốc thăm câu hỏi, bấm giờ Part 2 và Writing. Dữ liệu ở `shared/de-2025.js`, hình ở `hinh-de-2025/`.
 - **Lời thoại chạy chữ:** câu đang phát được tô vàng; nút ▶ đầu mỗi lượt nói. **📍 ở Listening** phát lại đúng đoạn có đáp án.
 - **❓ Hướng dẫn nhanh** có ảnh minh hoạ cho học viên mới.
 - Audio nén MP3 64 kbps mono (giọng vẫn rõ, nhẹ hơn 2–3 lần, tải nhanh hơn trên điện thoại); độ dài và mốc lời thoại giữ nguyên.

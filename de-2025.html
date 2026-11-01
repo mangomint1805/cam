@@ -155,7 +155,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
     if(k==='p2') return '<div class="say"><span class="cue">'+hl(t.cue)+'</span><br>You should say:<ul>'+t.say.map(function(x){ return '<li>'+hl(x)+'</li>'; }).join('')+'</ul></div>'+
       (t.p3.length?'<h4>Part 3'+(t.p3t?' · '+esc(t.p3t):'')+'</h4><ol>'+t.p3.map(function(x){ return '<li>'+hl(x)+' <button class="sb" data-say="'+esc(x)+'" style="padding:1px 7px" aria-label="Nghe câu hỏi">🔊</button></li>'; }).join('')+'</ol>':'<p class="ex">Nguồn chưa có câu hỏi Part 3 cho đề này'+(t.p3t?' (chủ đề: '+esc(t.p3t)+')':'')+'.</p>')+
       '<div class="row"><button class="btn" data-drill="'+esc(t.id)+'">🎙 Luyện nói đề này</button></div>';
-    if(k==='t1') return '<img class="chart" alt="Hình đề Task 1" loading="lazy" src="de-2025/'+esc(t.img)+'"><p style="margin:0 0 4px"><b>'+hl(t.p)+'</b></p><p class="ex">Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.</p>';
+    if(k==='t1') return '<img class="chart" alt="Hình đề Task 1" loading="lazy" src="hinh-de-2025/'+esc(t.img)+'"><p style="margin:0 0 4px"><b>'+hl(t.p)+'</b></p><p class="ex">Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.</p>';
     return '';
   }
   function chips(){
@@ -221,7 +221,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
   }
   function randW(){
     var L=list(tab); if(!L.length) L=D[tab]; var t=pick(L), mins=tab==='t1'?20:40;
-    var ov=overlay('<div class="ph" id="wph">'+(tab==='t1'?'Task 1 · '+esc(KIND[t.k]):'Task 2 · '+esc(TH[t.g]))+' · '+mins+' phút</div><div class="clk" id="wclk">'+mins+':00</div>'+(tab==='t1'?'<img class="chart" alt="Hình đề Task 1" src="de-2025/'+esc(t.img)+'">':'')+'<p style="font-weight:600">'+esc(t.p)+'</p><p class="hint">Viết ra giấy hoặc máy, ít nhất '+(tab==='t1'?150:250)+' từ. Xong thì gửi bài cho thầy chữa.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="wgo">▶ Bắt đầu bấm giờ</button><button class="btn" id="wn">🎲 Đề khác</button><button class="btn alt" id="wx">Đóng</button></div>');
+    var ov=overlay('<div class="ph" id="wph">'+(tab==='t1'?'Task 1 · '+esc(KIND[t.k]):'Task 2 · '+esc(TH[t.g]))+' · '+mins+' phút</div><div class="clk" id="wclk">'+mins+':00</div>'+(tab==='t1'?'<img class="chart" alt="Hình đề Task 1" src="hinh-de-2025/'+esc(t.img)+'">':'')+'<p style="font-weight:600">'+esc(t.p)+'</p><p class="hint">Viết ra giấy hoặc máy, ít nhất '+(tab==='t1'?150:250)+' từ. Xong thì gửi bài cho thầy chữa.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="wgo">▶ Bắt đầu bấm giờ</button><button class="btn" id="wn">🎲 Đề khác</button><button class="btn alt" id="wx">Đóng</button></div>');
     ov.querySelector('#wgo').onclick=function(){ var b=this, end=Date.now()+mins*60000; b.disabled=true; if(ov._iv) clearInterval(ov._iv); ov._iv=setInterval(function(){ var left=Math.max(0,Math.ceil((end-Date.now())/1000)); ov.querySelector('#wclk').textContent=fmt(left); if(!left){ clearInterval(ov._iv); ov._iv=0; ov.querySelector('#wph').textContent='Hết giờ! Dừng bút và đếm số từ nhé.'; var k=tab+':'+t.id; DONE[k]=DONE[k]||Date.now(); put('mt.d25.done',DONE); summary(); } },250); };
     ov.querySelector('#wn').onclick=function(){ ov._close(); randW(); }; ov.querySelector('#wx').onclick=function(){ ov._close(); };
   }
