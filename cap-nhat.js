@@ -1,6 +1,16 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-11-01e', date: '01/11/2026',
+    title: 'Trang mới: Đề Speaking & Writing 2025',
+    items: [
+      'Thêm trang "Đề Speaking & Writing 2025" (ở mục Công cụ ôn tập trên trang chủ): gom các câu hỏi Speaking và đề Writing thí sinh báo lại từ 9/2024 đến 8/2025, đã bỏ câu trùng.',
+      'Speaking: 36 chủ đề Part 1 có nút 🔊 nghe câu hỏi, 109 đề Part 2 kèm câu hỏi Part 3, nút 🎲 bốc thăm câu hỏi và bấm giờ 1 phút chuẩn bị + 2 phút nói. Đề quý gần nhất có nhãn Q2/2025.',
+      'Writing: 64 đề Task 1 có hình biểu đồ / bản đồ / quy trình và 65 đề Task 2 chia theo chủ đề, lọc theo dạng, có bấm giờ 20 / 40 phút.',
+      'Trang chỉ có đề, không có bài mẫu: bạn tự nói, tự viết rồi gửi thầy chữa nhé. Tick ✓ đề đã luyện để theo dõi tiến độ.'
+    ]
+  },
+  {
     id: '2026-11-01d', date: '01/11/2026',
     title: 'Sửa đáp án một số câu VOL 6, 8, 9',
     items: [
