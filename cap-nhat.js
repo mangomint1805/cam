@@ -1,6 +1,16 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-11-01c', date: '01/11/2026',
+    title: 'Thêm bộ đề IELTS Original Exams VOL 6',
+    items: [
+      'Thêm 6 đề thi thật VOL 6: mỗi đề đủ Listening 40 câu và Reading 40 câu, chấm điểm ngay, có giải thích tiếng Việt cho từng câu và nút 📍 xem lại đúng chỗ có đáp án.',
+      'Audio theo từng Part, lời thoại chạy chữ theo audio, có thêm câu chép chính tả của VOL 6. Lời thoại VOL 6 được ghi lại từ audio vì sách không kèm bản lời thoại.',
+      'Một vài câu sách thiếu đáp án (Test 3 Reading câu 32, Test 5 Reading câu 11–13) nên không tính điểm; câu nào đáp án sách có vẻ chưa khớp bài thì phần giải thích có ghi chú.'
+    ],
+    link: ['v6/', 'Xem bộ đề VOL 6']
+  },
+  {
     id: '2026-11-01b', date: '01/11/2026',
     title: 'Thêm bộ đề IELTS Original Exams VOL 8',
     items: [
