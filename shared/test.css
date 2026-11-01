@@ -137,3 +137,13 @@ mark.hl.has-note::after{content:"📝";font-size:11px;margin-left:1px}
 .notebox textarea{width:100%;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:4px;padding:6px;margin-bottom:6px;resize:vertical}
 .notebox .btn{padding:5px 12px;font-size:13px}
 .exam .ptools span{display:none}
+/* điện thoại: vùng chạm tối thiểu ~44px (lớp ::before vô hình, máy tính không đổi) */
+@media (max-width:600px){
+.spd button,.panel h2 .ptog,.qmk,.back{position:relative}
+.spd button::before,.panel h2 .ptog::before,.qmk::before,.back::before{content:"";position:absolute}
+.spd button::before{inset:-12px -2px}
+.panel h2 .ptog::before{inset:-10px -4px}
+.qmk::before{inset:-9px}
+.back::before{inset:-11px -8px}
+.qmkp button,.tabs button{min-height:44px}
+}
