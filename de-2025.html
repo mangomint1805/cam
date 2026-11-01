@@ -89,6 +89,17 @@ details.gp>summary::before{content:'▸';color:var(--dim);font-size:13px}details
 .kd{flex:none;font:600 11.5px/1 'IBM Plex Sans';color:var(--dim);background:var(--panel2);border-radius:999px;padding:4px 8px}
 .pq{font:500 22px/1.35 Fraunces,Georgia,serif;margin:12px 0}
 mark{background:#ffe9a8;color:inherit;border-radius:3px}
+/* viết bài */
+.drill .c.wide{max-width:760px}
+.wtop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0}
+.wtop .clk{font-size:30px;margin:0}.wtop .clk.over{color:#b4441f}
+.wcn{font-weight:700;font-size:14px;color:var(--dim)}.wcn.ok{color:var(--ok)}.wcn.low{color:#b4441f}
+.wsv{font-size:12.5px;color:var(--dim)}
+.drill textarea.essay{min-height:300px;border-style:solid;font-size:16px;line-height:1.65;background:#fff}
+.who{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.who input{flex:1 1 160px;font:inherit;padding:9px 11px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.wmsg{font-size:13.5px;margin:8px 0 0}.wmsg.ok{color:var(--ok);font-weight:600}.wmsg.warn{color:#8a3412}
+.chk{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--dim);margin:8px 0 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:120;background:#1e232b;color:#fff;border-radius:10px;padding:10px 16px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:calc(100vw - 32px)}
 </style>
 </head>
 <body data-nav="de2025">
@@ -104,7 +115,8 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
       <li><b>Part 1</b>: mở một chủ đề, bấm 🔊 nghe câu hỏi rồi trả lời to 2–3 câu (khoảng 20 giây mỗi câu).</li>
       <li><b>Part 2 & 3</b>: bấm <b>🎙 Luyện nói đề này</b> để có 1 phút chuẩn bị + 2 phút nói, sau đó trả lời các câu Part 3 đi kèm.</li>
       <li><b>🎲 Bốc thăm</b>: lấy ngẫu nhiên một câu / một đề để luyện như thi thật.</li>
-      <li><b>Writing</b>: Task 1 xem hình và viết trong 20 phút (≥150 từ), Task 2 viết trong 40 phút (≥250 từ). Lọc theo dạng biểu đồ hoặc chủ đề.</li>
+      <li><b>🎙 Ghi âm</b>: khi bốc thăm câu Part 1 hoặc luyện Part 2, bấm ghi âm để nghe lại giọng mình, tải file về. Trên Chrome web còn chép lời và đếm số từ, tốc độ nói, từ đệm (um, uh, like…). Bản ghi chỉ nằm trên máy bạn.</li>
+      <li><b>Writing</b>: Task 1 xem hình và viết trong 20 phút (≥150 từ), Task 2 viết trong 40 phút (≥250 từ). Bấm <b>✍️ Viết bài</b> để viết ngay trên web (tự lưu nháp, đếm từ, bấm giờ) rồi <b>📨 Gửi bài cho thầy</b>.</li>
       <li>Nhãn <span class="per q2">Q2/2025</span> là đề của quý gần nhất (tháng 5–8/2025). Tick ✓ những đề đã luyện để theo dõi tiến độ.</li>
     </ul>
   </details>
@@ -121,6 +133,8 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
   <p class="hint" style="margin-top:20px">Đề tổng hợp từ các bộ đề IELTS mà thí sinh báo lại (9/2024 – 8/2025), đã gộp các câu trùng. Đây là đề tham khảo để luyện tập, đề thi thật mỗi quý có thể thay đổi. Muốn xem đề dự đoán quý hiện tại, vào <a href="forecast.html">Forecast Speaking</a>; mẹo làm từng dạng Writing ở <a href="dang-writing.html">Các dạng Writing</a>.</p>
 </div>
 <script src="shared/de-2025.js?v=1"></script>
+<script src="c20/config.js"></script>
+<script src="shared/ghi-am.js?v=1"></script>
 <script>
 (function(){
   var D=window.DE2025||{p1:[],p2:[],t1:[],t2:[],themes:[]}, main=document.getElementById('main');
@@ -128,6 +142,8 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
   function put(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
   function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
   function say(t){ try{ speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(t); u.lang='en-GB'; u.rate=.92; speechSynthesis.speak(u); }catch(e){} }
+  // đề Task 2 trong dữ liệu chưa có mã: đặt mã theo thứ tự (w2-1, w2-2…) để tick ✓ và lưu nháp từng đề
+  ['p1','p2','t1','t2'].forEach(function(k){ (D[k]||[]).forEach(function(t,i){ if(!t.id) t.id=(k==='t2'?'w2-':k+'-')+(i+1); }); });
   var TABS=[['p1','Speaking Part 1'],['p2','Part 2 & 3'],['t1','Writing Task 1'],['t2','Writing Task 2']];
   var KIND={bar:'Biểu đồ cột',line:'Biểu đồ đường',pie:'Biểu đồ tròn',table:'Bảng số liệu',mixed:'Kết hợp nhiều biểu đồ',map:'Bản đồ / mặt bằng',process:'Quy trình'};
   var TH={}; D.themes.forEach(function(t){ TH[t[0]]=t[1]; });
@@ -151,11 +167,11 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
   function ck(k,t){ var d=!!DONE[k+':'+t.id]; return '<button class="ck'+(d?' on':'')+'" data-ck="'+esc(t.id)+'" aria-label="Đánh dấu đã luyện" title="Đã luyện">'+(d?'✓':'')+'</button>'; }
   function perTag(t){ return t.per?'<span class="per'+(isQ2(t)?' q2':'')+'">'+esc(t.per)+'</span>':''; }
   function body(t,k){
-    if(k==='p1') return '<ol>'+t.q.map(function(x){ return '<li>'+hl(x)+' <button class="sb" data-say="'+esc(x)+'" style="padding:1px 7px" aria-label="Nghe câu hỏi">🔊</button></li>'; }).join('')+'</ol>';
+    if(k==='p1') return '<ol>'+t.q.map(function(x,i){ return '<li>'+hl(x)+' <button class="sb" data-say="'+esc(x)+'" style="padding:1px 7px" aria-label="Nghe câu hỏi">🔊</button> <button class="sb" data-p1="'+i+'" style="padding:1px 7px" aria-label="Luyện và ghi âm câu này">🎙</button></li>'; }).join('')+'</ol>';
     if(k==='p2') return '<div class="say"><span class="cue">'+hl(t.cue)+'</span><br>You should say:<ul>'+t.say.map(function(x){ return '<li>'+hl(x)+'</li>'; }).join('')+'</ul></div>'+
       (t.p3.length?'<h4>Part 3'+(t.p3t?' · '+esc(t.p3t):'')+'</h4><ol>'+t.p3.map(function(x){ return '<li>'+hl(x)+' <button class="sb" data-say="'+esc(x)+'" style="padding:1px 7px" aria-label="Nghe câu hỏi">🔊</button></li>'; }).join('')+'</ol>':'<p class="ex">Nguồn chưa có câu hỏi Part 3 cho đề này'+(t.p3t?' (chủ đề: '+esc(t.p3t)+')':'')+'.</p>')+
       '<div class="row"><button class="btn" data-drill="'+esc(t.id)+'">🎙 Luyện nói đề này</button></div>';
-    if(k==='t1') return '<img class="chart" alt="Hình đề Task 1" loading="lazy" src="hinh-de-2025/'+esc(t.img)+'"><p style="margin:0 0 4px"><b>'+hl(t.p)+'</b></p><p class="ex">Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.</p>';
+    if(k==='t1') return '<img class="chart" alt="Hình đề Task 1" loading="lazy" src="hinh-de-2025/'+esc(t.img)+'"><p style="margin:0 0 4px"><b>'+hl(t.p)+'</b></p><p class="ex">Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.</p><div class="row"><button class="btn" data-write="1">✍️ Viết bài'+(draft('t1',t)?' (có nháp)':'')+'</button></div>';
     return '';
   }
   function chips(){
@@ -179,7 +195,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
       var name=tab==='t1'?KIND[g]:tab==='t2'?TH[g]:GRP[g];
       h+='<details class="gp" open><summary><span class="grp">'+esc(name)+' · '+G[g].length+'</span></summary>';
       G[g].forEach(function(t){
-        if(tab==='t2'){ h+='<div class="wq" data-id="'+esc(t.id)+'">'+ck(tab,t)+'<p>'+hl(t.p)+'</p></div>'; return; }
+        if(tab==='t2'){ h+='<div class="wq" data-id="'+esc(t.id)+'">'+ck(tab,t)+'<p>'+hl(t.p)+'<br><button class="sb" data-write="1" style="margin-top:6px">✍️ Viết bài'+(draft('t2',t)?' (có nháp)':'')+'</button></p></div>'; return; }
         var title=tab==='t1'?t.p:t.t, sub=tab==='p1'?t.q.length+' câu hỏi':tab==='p2'?t.cue:KIND[t.k];
         h+='<details class="tp" data-id="'+esc(t.id)+'"'+(qy&&tab!=='t1'?' open':'')+'><summary>'+ck(tab,t)+'<span class="t"><b>'+hl(title)+'</b><small>'+(tab==='t1'?esc(sub):hl(sub))+'</small></span>'+(tab==='t1'?'':perTag(t))+'</summary><div class="bd"></div></details>';
       });
@@ -191,39 +207,100 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
       var t=M[el.dataset.id];
       function fill(){ if(el.tagName==='DETAILS'&&el.open&&!el._b){ el._b=1; el.querySelector('.bd').innerHTML=body(t,tab); bindBody(el,t); } }
       if(el.tagName==='DETAILS'){ el.addEventListener('toggle',fill); fill(); }
+      if(tab==='t2'){ var wb=el.querySelector('[data-write]'); if(wb) wb.onclick=function(){ writeBox(t,'t2'); }; }
       var c=el.querySelector('[data-ck]'); if(c) c.onclick=function(e){ e.preventDefault(); e.stopPropagation(); var k=tab+':'+t.id; if(DONE[k]) delete DONE[k]; else DONE[k]=Date.now(); put('mt.d25.done',DONE); c.classList.toggle('on',!!DONE[k]); c.textContent=DONE[k]?'✓':''; summary(); };
     });
   }
   function bindBody(el,t){
     [].forEach.call(el.querySelectorAll('[data-say]'),function(b){ b.onclick=function(){ say(b.dataset.say); }; });
     var d=el.querySelector('[data-drill]'); if(d) d.onclick=function(){ drill(t); };
+    [].forEach.call(el.querySelectorAll('[data-p1]'),function(b){ b.onclick=function(){ p1Box(t,t.q[+b.dataset.p1]); }; });
+    var w=el.querySelector('[data-write]'); if(w) w.onclick=function(){ writeBox(t,'t1'); };
   }
-  function overlay(html){ var ov=document.createElement('div'); ov.className='drill'; ov.innerHTML='<div class="c">'+html+'</div>'; document.body.appendChild(ov); ov.addEventListener('click',function(e){ if(e.target===ov) close(); }); var esc2=function(e){ if(e.key==='Escape') close(); }; document.addEventListener('keydown',esc2); function close(){ if(ov._iv) clearInterval(ov._iv); try{ speechSynthesis.cancel(); }catch(e){} document.removeEventListener('keydown',esc2); ov.remove(); } ov._close=close; return ov; }
+  function overlay(html){ var ov=document.createElement('div'); ov.className='drill'; ov.innerHTML='<div class="c">'+html+'</div>'; document.body.appendChild(ov); ov.addEventListener('click',function(e){ if(e.target===ov) close(); }); var esc2=function(e){ if(e.key==='Escape') close(); }; document.addEventListener('keydown',esc2); function close(){ if(ov._guard&&!ov._guard()) return; if(ov._rec) ov._rec.kill(); if(ov._iv) clearInterval(ov._iv); try{ speechSynthesis.cancel(); }catch(e){} document.removeEventListener('keydown',esc2); ov.remove(); } ov._close=close; return ov; }
   function fmt(s){ return Math.floor(s/60)+':'+('0'+s%60).slice(-2); }
   function drill(t){
     var ov=overlay('<div class="ph" id="dph">Chuẩn bị · 1 phút</div><div class="clk" id="dclk">1:00</div><div class="say"><b>'+esc(t.cue)+'</b><br>You should say:<ul>'+t.say.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('')+'</ul></div>'+
       '<p class="hint" style="margin:10px 0 4px">Ghi chú nhanh (như giấy nháp trong phòng thi):</p><textarea placeholder="ý chính, từ khoá…"></textarea>'+
-      '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" id="dgo">Bắt đầu nói ngay</button><button class="btn alt" id="dx">Đóng</button></div>');
-    var phase=0, end=Date.now()+60000;
+      '<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn" id="dgo">Bắt đầu nói ngay</button><button class="btn alt" id="dx">Đóng</button></div>'+
+      (window.MREC&&MREC.ok?'<label class="chk"><input type="checkbox" id="dar"'+(get('mt.d25.autorec',1)?' checked':'')+'> Tự ghi âm khi bắt đầu nói</label>':'')+'<div id="drec"></div>');
+    var phase=0, end=Date.now()+60000, R=window.MREC?MREC.mount(ov.querySelector('#drec'),{name:'part2-'+t.id,minSec:90}):null; ov._rec=R;
+    var ar=ov.querySelector('#dar'); if(ar) ar.onchange=function(){ put('mt.d25.autorec',ar.checked?1:0); };
+    ov._guard=function(){ return !(R&&(R.on()||R.has()))||confirm('Đóng thì bản ghi sẽ mất (nhớ tải về trước nếu muốn giữ). Vẫn đóng?'); };
     function mark(){ var k='p2:'+t.id; DONE[k]=DONE[k]||Date.now(); put('mt.d25.done',DONE); }
-    function speak(){ phase=1; end=Date.now()+120000; ov.querySelector('#dph').textContent='Nói · 2 phút — cố nói đủ các ý'; ov.querySelector('#dgo').textContent='Xong'; }
+    function speak(){ phase=1; end=Date.now()+120000; ov.querySelector('#dph').textContent='Nói · 2 phút — cố nói đủ các ý'; ov.querySelector('#dgo').textContent='Xong'; if(R&&ar&&ar.checked) R.start(); }
     function tick(){ var left=Math.max(0,Math.ceil((end-Date.now())/1000)); ov.querySelector('#dclk').textContent=fmt(left);
-      if(left===0){ if(phase===0) speak(); else { clearInterval(ov._iv); ov._iv=0; ov.querySelector('#dph').textContent='Hết giờ! 🎉 Tự chấm: đủ ý chưa, có ví dụ cụ thể chưa?'; mark(); } } }
+      if(left===0){ if(phase===0) speak(); else { clearInterval(ov._iv); ov._iv=0; ov.querySelector('#dph').textContent='Hết giờ! 🎉 Tự chấm: đủ ý chưa, có ví dụ cụ thể chưa?'; mark(); if(R) R.stop(); } } }
     ov._iv=setInterval(tick,250);
-    ov.querySelector('#dgo').onclick=function(){ if(phase===0) speak(); else { mark(); ov._close(); render(); } };
+    ov.querySelector('#dgo').onclick=function(){ if(phase===0) speak(); else if(phase===1){ phase=2; mark(); if(ov._iv){ clearInterval(ov._iv); ov._iv=0; } if(R) R.stop(); if(R&&(R.on()||R.has())){ ov.querySelector('#dph').textContent='Xong! Nghe lại bài nói bên dưới 👇'; this.style.display='none'; } else { ov._close(); render(); } } else { ov._guard=null; ov._close(); render(); } };
     ov.querySelector('#dx').onclick=function(){ ov._close(); };
   }
   function pick(L){ var pool=L.filter(function(t){ return !DONE[tab+':'+t.id]; }); if(!pool.length) pool=L; return pool[Math.floor(Math.random()*pool.length)]; }
   function randP1(){
     var L=list('p1'); if(!L.length) L=D.p1; var t=pick(L), x=t.q[Math.floor(Math.random()*t.q.length)];
-    var ov=overlay('<div class="ph">Part 1 · '+esc(t.t)+'</div><p class="pq">'+esc(x)+'</p><p class="hint">Trả lời 2–3 câu: ý chính + lý do + ví dụ ngắn (khoảng 20 giây).</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="rs">🔊 Nghe lại</button><button class="btn" id="rn">🎲 Câu khác</button><button class="btn alt" id="rx">Đóng</button></div>');
-    say(x); ov.querySelector('#rs').onclick=function(){ say(x); }; ov.querySelector('#rn').onclick=function(){ ov._close(); randP1(); }; ov.querySelector('#rx').onclick=function(){ ov._close(); };
+    p1Box(t,x,true);
+  }
+  function p1Box(t,x,rnd){
+    var ov=overlay('<div class="ph">Part 1 · '+esc(t.t)+'</div><p class="pq">'+esc(x)+'</p><p class="hint">Trả lời 2–3 câu: ý chính + lý do + ví dụ ngắn (khoảng 20 giây).</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="rs">🔊 Nghe lại</button>'+(rnd?'<button class="btn" id="rn">🎲 Câu khác</button>':'')+'<button class="btn alt" id="rx">Đóng</button></div><div id="rrec"></div>');
+    var R=window.MREC?MREC.mount(ov.querySelector('#rrec'),{name:'part1-'+t.id}):null; ov._rec=R;
+    ov._guard=function(){ return !(R&&(R.on()||R.has()))||confirm('Đóng thì bản ghi sẽ mất (nhớ tải về trước nếu muốn giữ). Vẫn đóng?'); };
+    say(x); ov.querySelector('#rs').onclick=function(){ say(x); }; if(rnd) ov.querySelector('#rn').onclick=function(){ ov._guard=null; ov._close(); randP1(); }; ov.querySelector('#rx').onclick=function(){ ov._close(); };
   }
   function randW(){
-    var L=list(tab); if(!L.length) L=D[tab]; var t=pick(L), mins=tab==='t1'?20:40;
-    var ov=overlay('<div class="ph" id="wph">'+(tab==='t1'?'Task 1 · '+esc(KIND[t.k]):'Task 2 · '+esc(TH[t.g]))+' · '+mins+' phút</div><div class="clk" id="wclk">'+mins+':00</div>'+(tab==='t1'?'<img class="chart" alt="Hình đề Task 1" src="hinh-de-2025/'+esc(t.img)+'">':'')+'<p style="font-weight:600">'+esc(t.p)+'</p><p class="hint">Viết ra giấy hoặc máy, ít nhất '+(tab==='t1'?150:250)+' từ. Xong thì gửi bài cho thầy chữa.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="wgo">▶ Bắt đầu bấm giờ</button><button class="btn" id="wn">🎲 Đề khác</button><button class="btn alt" id="wx">Đóng</button></div>');
-    ov.querySelector('#wgo').onclick=function(){ var b=this, end=Date.now()+mins*60000; b.disabled=true; if(ov._iv) clearInterval(ov._iv); ov._iv=setInterval(function(){ var left=Math.max(0,Math.ceil((end-Date.now())/1000)); ov.querySelector('#wclk').textContent=fmt(left); if(!left){ clearInterval(ov._iv); ov._iv=0; ov.querySelector('#wph').textContent='Hết giờ! Dừng bút và đếm số từ nhé.'; var k=tab+':'+t.id; DONE[k]=DONE[k]||Date.now(); put('mt.d25.done',DONE); summary(); } },250); };
-    ov.querySelector('#wn').onclick=function(){ ov._close(); randW(); }; ov.querySelector('#wx').onclick=function(){ ov._close(); };
+    var L=list(tab); if(!L.length) L=D[tab]; writeBox(pick(L),tab,true);
+  }
+  // ---------- viết bài: đếm từ, bấm giờ, tự lưu nháp (mt.d25.w.*, đồng bộ theo tài khoản), gửi thầy qua Apps Script ----------
+  function wkey(k,t){ return 'mt.d25.w.'+k+'.'+t.id; }
+  function draft(k,t){ var d=get(wkey(k,t),null); return d&&d.x?d:null; }
+  function raw(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
+  function wc(x){ var m=String(x||'').match(/[A-Za-z0-9'’-]+/g); return m?m.length:0; }
+  function toast(m){ var d=document.createElement('div'); d.className='toast'; d.textContent=m; document.body.appendChild(d); setTimeout(function(){ d.remove(); },2800); }
+  function copy(txt,ok){ function fb(){ var ta=document.createElement('textarea'); ta.value=txt; ta.style.cssText='position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){} ta.remove(); }
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok,fb); else fb(); }
+  function writeBox(t,k,rnd){
+    var mins=k==='t1'?20:40, need=k==='t1'?150:250, K=wkey(k,t), dr=get(K,{})||{}, name=raw('cam20.name'), lop=raw('cam20.lop');
+    if(!name){ try{ name=(JSON.parse(localStorage.getItem('mt.acc'))||{}).name||''; }catch(e){} }
+    var ov=overlay('<div class="ph">'+(k==='t1'?'Task 1 · '+esc(KIND[t.k]):'Task 2 · '+esc(TH[t.g]))+' · '+mins+' phút · ≥'+need+' từ</div>'+
+      (k==='t1'?'<img class="chart" alt="Hình đề Task 1" src="hinh-de-2025/'+esc(t.img)+'">':'')+'<p style="font-weight:600;margin:8px 0">'+esc(t.p)+'</p>'+
+      '<div class="wtop"><span class="clk" id="wclk">'+mins+':00</span><button class="btn alt" id="wgo">▶ Bấm giờ '+mins+' phút</button><span class="wcn" id="wcn">0 từ</span><span class="wsv" id="wsv"></span></div>'+
+      '<textarea class="essay" id="wta" spellcheck="false" placeholder="Viết bài ở đây… (tự lưu nháp trên máy này)"></textarea>'+
+      '<div class="who"><input id="wnm" placeholder="Họ và tên" autocomplete="name" value="'+esc(name)+'"><input id="wlp" placeholder="Lớp / nhóm (nếu có)" value="'+esc(lop)+'"></div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="wsend">📨 Gửi bài cho thầy</button><button class="btn alt" id="wcp">📋 Sao chép bài</button>'+(rnd?'<button class="btn alt" id="wn">🎲 Đề khác</button>':'')+'<button class="btn alt" id="wx">Đóng</button></div>'+
+      '<p class="wmsg" id="wmsg"></p><p class="hint">Nháp tự lưu, đóng rồi mở lại vẫn còn. Tắt kiểm tra chính tả để luyện như thi thật.</p>');
+    ov.querySelector('.c').classList.add('wide');
+    var ta=ov.querySelector('#wta'), cn=ov.querySelector('#wcn'), sv=ov.querySelector('#wsv'), msg=ov.querySelector('#wmsg'), end=dr.end||0, stT;
+    ta.value=dr.x||'';
+    function upd(){ var n=wc(ta.value); cn.textContent=n+' / '+need+' từ'; cn.className='wcn '+(n>=need?'ok':n?'low':''); }
+    function save(){ dr=get(K,{})||{}; dr.x=ta.value; dr.end=end; dr.at=Date.now(); if(!ta.value&&!end) localStorage.removeItem(K); else put(K,dr); sv.textContent='Đã lưu nháp ✓'; }
+    ta.oninput=function(){ upd(); clearTimeout(stT); stT=setTimeout(save,600); }; upd();
+    function tick(){ var left=Math.round((end-Date.now())/1000), c=ov.querySelector('#wclk'), a=Math.abs(left); c.textContent=(left<0?'+':'')+fmt(a); c.classList.toggle('over',left<0); }
+    function run(){ if(ov._iv) clearInterval(ov._iv); tick(); ov._iv=setInterval(tick,500); ov.querySelector('#wgo').textContent='⟲ Bấm giờ lại'; }
+    if(end) run();
+    ov.querySelector('#wgo').onclick=function(){ end=Date.now()+mins*60000; save(); run(); ta.focus(); };
+    function full(){ return 'IELTS Writing '+(k==='t1'?'Task 1':'Task 2')+' · Đề 2025 ('+t.id+')\n'+t.p+'\n\n'+ta.value.trim()+'\n\n('+wc(ta.value)+' từ'+(ov.querySelector('#wnm').value.trim()?' · '+ov.querySelector('#wnm').value.trim():'')+')'; }
+    function cp(){ copy(full(),function(){ toast('Đã sao chép bài ✓ — dán vào Zalo / Messenger gửi thầy nhé.'); }); }
+    ov.querySelector('#wcp').onclick=cp;
+    ov.querySelector('#wsend').onclick=function(){
+      var n=wc(ta.value), nm=ov.querySelector('#wnm').value.trim(), lp=ov.querySelector('#wlp').value.trim();
+      if(n<20){ msg.className='wmsg warn'; msg.textContent='Bài còn ngắn quá, viết thêm nhé.'; return; }
+      var url=window.C20CFG&&window.C20CFG.SCRIPT_URL;
+      if(!url){ msg.className='wmsg warn'; msg.innerHTML='Chức năng gửi bài chưa được thầy bật. Bấm <b>📋 Sao chép bài</b> rồi dán gửi thầy qua Zalo nhé.'; return; }
+      if(!nm){ msg.className='wmsg warn'; msg.textContent='Nhập họ tên để thầy biết bài của ai nhé.'; ov.querySelector('#wnm').focus(); return; }
+      if(n<need&&!confirm('Bài mới có '+n+' từ (yêu cầu '+need+'). Vẫn gửi?')) return;
+      try{ localStorage.setItem('cam20.name',nm); localStorage.setItem('cam20.lop',lp); }catch(e){}
+      var used=end?Math.max(0,Math.round((Date.now()-(end-mins*60000))/60000)):'';
+      var body={kind:'cam20',name:nm,lop:lp,test:'Đề 2025 · '+t.id,part:'Writing '+(k==='t1'?'Task 1':'Task 2'),mode:'Writing',got:n,total:need,band:'',minutes:used,wrong:ta.value,prompt:t.p,auto:false,submittedAt:new Date().toISOString(),userAgent:navigator.userAgent.slice(0,120)};
+      var b=this; b.disabled=true; msg.className='wmsg'; msg.textContent='Đang gửi…';
+      fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).then(function(){
+        b.disabled=false; msg.className='wmsg ok'; msg.textContent='✓ Đã gửi bài cho thầy ('+n+' từ). Nháp vẫn giữ trên máy để bạn xem lại.';
+        var kk=k+':'+t.id; DONE[kk]=DONE[kk]||Date.now(); put('mt.d25.done',DONE); summary();
+        try{ var wh=JSON.parse(localStorage.getItem('cam.ws.hist')||'[]'); wh.push({t:Date.now(),b:'2025',test:t.id,task:k==='t1'?'w1':'w2',words:n}); localStorage.setItem('cam.ws.hist',JSON.stringify(wh.slice(-100))); }catch(e){}
+      }).catch(function(){ b.disabled=false; msg.className='wmsg warn'; msg.innerHTML='Chưa gửi được (mất mạng?). Thử lại, hoặc bấm <b>📋 Sao chép bài</b> gửi thầy qua Zalo.'; });
+    };
+    if(rnd) ov.querySelector('#wn').onclick=function(){ save(); ov._close(); randW(); };
+    ov.querySelector('#wx').onclick=function(){ save(); ov._close(); render(); };
+    ov._guard=function(){ save(); return true; };
+    if(!rnd) ta.focus();
   }
   var tm; document.getElementById('q').oninput=function(){ var v=this.value.trim(); clearTimeout(tm); tm=setTimeout(function(){ qy=v; render(); },200); };
   function tog(id,fn){ var b=document.getElementById(id); b.onclick=function(){ var on=b.getAttribute('aria-pressed')!=='true'; b.setAttribute('aria-pressed',on); fn(on); render(); }; }

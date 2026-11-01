@@ -186,7 +186,7 @@ details.sample .in{padding:2px 16px 12px;white-space:pre-line;font-size:15px}
       (w.sample?'<details class="sample"><summary>📄 Xem bài mẫu'+(w.sample.band?'<span class="band">'+(w.sample.band==='Model'?'Bài mẫu giám khảo':'Band '+esc(w.sample.band))+'</span>':'')+'</summary><div class="in">'+esc(w.sample.text)+(w.sample.comment?'<div class="comment"><b>Nhận xét của giám khảo:</b>\n'+esc(w.sample.comment)+'</div>':'')+'</div></details>':'<p class="sub" style="margin-top:12px">Sách không có bài mẫu cho task này.</p>')+
       '</div><div class="card"><div class="wbar"><span class="clock" id="clk">'+mins+':00</span><button class="btn sm alt" id="clkBtn" type="button">▶ Bấm giờ '+mins+' phút</button><span class="wc" id="wc">0 từ</span><span class="saved" id="sv"></span></div>'+
       '<textarea id="essay" spellcheck="false" placeholder="Viết bài ở đây… (bài tự lưu trên máy này)"></textarea>'+
-      '<div class="wbar"><button class="btn" id="sendBtn" type="button">📨 Gửi bài cho thầy</button><button class="btn alt sm" id="clrBtn" type="button">Xoá bài, viết lại</button></div>'+
+      '<div class="wbar"><button class="btn" id="sendBtn" type="button">📨 Gửi bài cho thầy</button><button class="btn alt sm" id="cpBtn" type="button">📋 Sao chép bài</button><button class="btn alt sm" id="clrBtn" type="button">Xoá bài, viết lại</button></div>'+
       '<p class="sub">Viết xong bấm <b>Gửi bài cho thầy</b> để thầy chấm. Tắt kiểm tra chính tả để luyện như thi thật.</p></div></div>';
     $('#main').innerHTML=h;
     var ta=$('#essay'); ta.value=lsg(K)||'';
@@ -199,14 +199,20 @@ details.sample .in{padding:2px 16px 12px;white-space:pre-line;font-size:15px}
     if(end) startClock();
     $('#clkBtn').onclick=function(){end=Date.now()+mins*60000;lss(K+'.end',String(end));startClock();ta.focus();};
     $('#clrBtn').onclick=function(){if(ta.value&&!confirm('Xoá bài đang viết?'))return;ta.value='';lss(K,'');lss(K+'.end','');end=0;clearInterval(clockId);$('#clk').textContent=mins+':00';$('#clk').classList.remove('over');$('#clkBtn').textContent='▶ Bấm giờ '+mins+' phút';upd();};
+    function cp(){ var txt='Cam '+N+' · Test '+T+' · Writing Task '+(k==='w1'?1:2)+'\n'+w.prompt+'\n\n'+ta.value.trim()+'\n\n('+wc(ta.value)+' từ'+(lsg('cam20.name')?' · '+lsg('cam20.name'):'')+')';
+      function ok(){toast('Đã sao chép bài ✓ — dán vào Zalo gửi thầy nhé.');}
+      function fb(){var x=document.createElement('textarea');x.value=txt;x.style.cssText='position:fixed;opacity:0';document.body.appendChild(x);x.select();try{document.execCommand('copy');ok();}catch(e){}x.remove();}
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok,fb); else fb(); }
+    $('#cpBtn').onclick=cp;
     $('#sendBtn').onclick=function(){
       var n=wc(ta.value); if(n<20){toast('Bài còn ngắn quá, viết thêm nhé.');return;}
+      if(!(window.C20CFG&&window.C20CFG.SCRIPT_URL)){toast('Chức năng gửi bài chưa được bật. Bấm 📋 Sao chép bài rồi gửi thầy qua Zalo nhé.');return;}
       if(n<need&&!confirm('Bài mới có '+n+' từ (yêu cầu '+need+'). Vẫn gửi?'))return;
       withName(function(){
         try{var wh=JSON.parse(lsg('cam.ws.hist')||'[]');wh.push({t:Date.now(),b:N,test:T,task:k,words:n});lss('cam.ws.hist',JSON.stringify(wh.slice(-100)));}catch(e){}
         var url=window.C20CFG&&window.C20CFG.SCRIPT_URL; if(!url)return;
         var used=end?Math.max(0,Math.round((Date.now()-(end-mins*60000))/60000)):'';
-        var body={kind:'cam20',name:lsg('cam20.name')||'',lop:lsg('cam20.lop')||'',test:'Cam '+N+' · Test '+T,part:'Writing Task '+(k==='w1'?1:2),mode:'Writing',got:n,total:need,band:'',minutes:used,wrong:ta.value,auto:false,submittedAt:new Date().toISOString(),userAgent:navigator.userAgent.slice(0,120)};
+        var body={kind:'cam20',name:lsg('cam20.name')||'',lop:lsg('cam20.lop')||'',test:'Cam '+N+' · Test '+T,part:'Writing Task '+(k==='w1'?1:2),mode:'Writing',got:n,total:need,band:'',minutes:used,wrong:ta.value,prompt:String(w.prompt||'').slice(0,2000),auto:false,submittedAt:new Date().toISOString(),userAgent:navigator.userAgent.slice(0,120)};
         try{fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)});}catch(e){}
         toast('Đã gửi bài cho thầy ✓');
       });

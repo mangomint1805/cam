@@ -10,6 +10,7 @@
  *  4. Triển khai → Quản lý các bản triển khai → bấm bút chì ở bản đang dùng → Phiên bản: "Phiên bản mới" → Triển khai.
  *     (Giữ nguyên bản triển khai cũ để link /exec KHÔNG đổi.)
  *
+ * 02/11/2026: bài Writing có thêm cột "Nội dung đề" (đề bài học viên viết, ví dụ ở trang Đề Speaking & Writing 2025).
  * Kết quả bài làm vẫn vào tab cũ; góp ý / báo lỗi vào tab "Góp ý"; bài Writing vào tab "Bài viết".
  * Trang "Bảng theo dõi lớp" chỉ mở được khi đăng nhập đúng tài khoản Google của thầy.
  * (Mã giáo viên cũ vẫn chạy cho tới khi chạy hàm tatMaGiaoVien.)
@@ -21,7 +22,7 @@ const FB_NAME = 'Góp ý';
 const FB_HEAD = ['Thời gian', 'Họ tên', 'Lớp / nhóm', 'Loại', 'Nội dung', 'Trang', 'Thiết bị', 'Email'];
 const FIREBASE_API_KEY = 'AIzaSyA7LEweMPy4tSjjR_An_KZaGXSzGI2nQv4'; // mã công khai của web (giống trong acc.js), dùng để hỏi Google kiểm tra thẻ đăng nhập
 const WS_NAME = 'Bài viết';
-const WS_HEAD = ['Thời gian', 'Họ tên', 'Lớp / nhóm', 'Đề', 'Task', 'Số từ', 'Yêu cầu', 'Số phút', 'Bài viết', 'Email'];
+const WS_HEAD = ['Thời gian', 'Họ tên', 'Lớp / nhóm', 'Đề', 'Task', 'Số từ', 'Yêu cầu', 'Số phút', 'Bài viết', 'Email', 'Nội dung đề'];
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -37,7 +38,7 @@ function doPost(e) {
       return out_({ ok: true });
     }
     if (d.mode === 'Writing') {
-      tab_(WS_NAME, WS_HEAD).appendRow([when, name, lop, t_(d.test, 120), t_(part), Number(d.got) || '', Number(d.total) || '', t_(d.minutes, 20), t_(d.wrong, 20000), email]);
+      tab_(WS_NAME, WS_HEAD).appendRow([when, name, lop, t_(d.test, 120), t_(part), Number(d.got) || '', Number(d.total) || '', t_(d.minutes, 20), t_(d.wrong, 20000), email, t_(d.prompt, 2000)]);
       return out_({ ok: true });
     }
     const sh = tab_(SHEET_NAME, HEAD);

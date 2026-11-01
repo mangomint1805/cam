@@ -9,6 +9,18 @@ window.MT_UPDATES = [
     ]
   },
   {
+    id: '2026-11-02', date: '02/11/2026',
+    title: 'Ghi âm bài nói, viết bài gửi thầy, flashcard VOL 6 · 8 · 9',
+    items: [
+      'Trang Đề Speaking & Writing 2025: khi bốc thăm câu Part 1 (hoặc bấm 🎙 cạnh từng câu) và khi luyện Part 2, bạn ghi âm được bài nói, nghe lại và tải file về máy. Bản ghi chỉ nằm trên máy bạn.',
+      'Trên Chrome (máy tính, Android) web còn chép lời bạn nói rồi cho biết số từ, thời gian nói, tốc độ (từ/phút) và các từ đệm như um, uh, like… để bạn tự sửa. iPhone chưa chép lời được nhưng vẫn ghi âm bình thường.',
+      'Writing 2025: bấm ✍️ Viết bài để viết ngay trên web, có đếm từ, bấm giờ 20 / 40 phút, tự lưu nháp, rồi 📨 Gửi bài cho thầy. Có thêm nút 📋 Sao chép bài để dán gửi qua Zalo (trang Writing & Speaking của từng bộ Cam cũng có nút này).',
+      'Bài đọc VOL 6, VOL 8, VOL 9 đã có nút 🃏 Từ vựng: khoảng 10 từ khó mỗi passage, có nghĩa tiếng Việt và câu ví dụ lấy từ chính bài đọc.',
+      'Trong flashcard từ vựng của mọi bộ đề: từ nào bấm "Chưa thuộc" sẽ tự vào lịch ôn ở trang Flashcard (web tự hẹn ngày ôn lại, từ hay quên gặp lại sớm). Muốn ôn cả bộ thì bấm ☆ Đưa cả bộ vào lịch ôn.'
+    ],
+    link: ['de-2025.html', 'Mở Đề Speaking & Writing 2025']
+  },
+  {
     id: '2026-11-01e', date: '01/11/2026',
     title: 'Trang mới: Đề Speaking & Writing 2025',
     items: [

@@ -12,6 +12,12 @@
 
   // ---------- 3. CSS ----------
   var css = '' +
+    '.fc-ex{margin-top:10px;font-size:13.5px;line-height:1.45;font-style:italic;color:var(--dim,#666e7a);max-height:84px;overflow:auto;}' +
+    '.fc-ex b{color:var(--ink,#1e232b);font-style:normal;}' +
+    '.fc-srs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:8px 0 2px;font-size:13px;color:var(--dim,#666e7a);}' +
+    '.fc-srs button{font:inherit;font-size:13.5px;font-weight:700;color:#fff;background:var(--teal,#1f8f6c);border:0;border-radius:999px;padding:6px 12px;cursor:pointer;}' +
+    '.fc-srs button[disabled]{opacity:.75;cursor:default;}' +
+    '.fc-srs a{color:var(--amber-ink,#6b4410);font-weight:600;}' +
     '.fc-open{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;font-size:15px;color:#fff;background:var(--amber,#a8691a);border:0;border-radius:10px;padding:11px 16px;cursor:pointer;margin:4px 0 8px;}' +
     '.fc-open:hover{filter:brightness(1.08);}' +
     '.fc-open small{font-weight:500;opacity:.85;}' +
@@ -107,6 +113,7 @@
     '<label>Tốc độ <select class="fc-rate" aria-label="Tốc độ đọc"><option value="0.7">Chậm</option><option value="0.9">Vừa</option><option value="1.1">Nhanh</option></select></label>' +
     '<label><input type="checkbox" class="fc-auto"> Tự đọc từ</label>' +
     '</div>' +
+    '<div class="fc-srs"><button type="button" class="fc-srs-b">☆ Đưa cả bộ vào lịch ôn</button><span class="fc-srs-n"></span></div>' +
     '<div class="fc-main"></div>' +
     '</div>';
   document.body.appendChild(bg);
@@ -232,7 +239,7 @@
     var c = deck[i];
     var enFace = '<div class="fc-word">' + esc(c.en) + '</div>' + (c.ipa ? '<div class="fc-ipa">' + esc(c.ipa) + '</div>' : '') + (c.pos ? '<span class="fc-pos">' + c.pos + '</span>' : '');
     var viFace = '<div class="fc-word">' + esc(c.vi) + '</div>';
-    var front = viFirst ? viFace : enFace, back = viFirst ? enFace : viFace;
+    var front = viFirst ? viFace : enFace, back = (viFirst ? enFace : viFace) + exHtml(c);
     var say = canSpeak ? '<button class="fc-say" type="button" aria-label="Nghe phát âm" title="Nghe phát âm">🔊</button>' : '';
     var tag = known[c.en] ? '<span class="fc-tag">✓ Đã thuộc</span>' : '';
     main.innerHTML =
@@ -297,7 +304,7 @@
   }
   function mark(v) {
     if (i >= deck.length || busy) return;
-    var c = deck[i]; if (v) known[c.en] = 1; else delete known[c.en]; save();
+    var c = deck[i]; if (v) known[c.en] = 1; else { delete known[c.en]; if (sPut([c])) srsBar(); } save();
     stats();
     var sc = main.querySelector('.fc-scene');
     var next = function () { busy = false; i++; flipped = false; enter = 'in-r'; render(); };
@@ -351,12 +358,36 @@
     else if (e.key === '2') mark(true);
   });
 
+  // ---------- Lịch ôn chung (vocab.cards, trang flashcards.html – FSRS, đồng bộ theo tài khoản) ----------
+  // Bấm "Chưa thuộc" thì từ đó tự vào lịch ôn; nút "Đưa cả bộ vào lịch ôn" thêm hết các từ của passage.
+  var SKEY = 'vocab.cards', curTitle = '';
+  function sLoad() { try { return JSON.parse(localStorage.getItem(SKEY)) || {}; } catch (e) { return {}; } }
+  function sPut(list) {
+    var C = sLoad(), n = 0;
+    list.forEach(function (c) { if (!c || !c.en || C[c.en]) return; C[c.en] = { w: c.en, ipa: c.ipa || '', m: c.vi || '', ex: c.ex || '', src: curTitle, at: Date.now(), box: 0 }; n++; });
+    if (n) { try { localStorage.setItem(SKEY, JSON.stringify(C)); } catch (e) {} }
+    return n;
+  }
+  function srsBar() {
+    var C = sLoad(), have = cards.filter(function (c) { return C[c.en]; }).length, b = bg.querySelector('.fc-srs-b');
+    b.disabled = have >= cards.length;
+    b.textContent = b.disabled ? '★ Cả bộ đã có trong lịch ôn' : '☆ Đưa cả bộ vào lịch ôn';
+    bg.querySelector('.fc-srs-n').innerHTML = (have ? have + '/' + cards.length + ' từ đang được hẹn ôn · ' : 'Từ bấm "Chưa thuộc" sẽ tự vào lịch ôn · ') + '<a href="../flashcards.html">Mở lịch ôn →</a>';
+  }
+  bg.querySelector('.fc-srs-b').addEventListener('click', function () { sPut(cards); srsBar(); });
+  function exHtml(c) {
+    if (!c.ex) return '';
+    var w = c.en.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').slice(0, Math.max(4, c.en.length - 2));
+    return '<div class="fc-ex">' + esc(c.ex).replace(new RegExp('\\b(' + w + '[\\w-]*)', 'i'), '<b>$1</b>') + '</div>';
+  }
+
   function open(list, title, storeKey) {
+    curTitle = title || '';
     cards = list.slice(); KEY = storeKey || 'c20.fc'; known = load();
     bg.querySelector('.fc-title').textContent = title || 'Flashcard từ vựng';
     lastFocus = document.activeElement;
     bg.classList.add('on'); document.documentElement.style.overflow = 'hidden';
-    busy = false; enter = ''; build();
+    busy = false; enter = ''; build(); srsBar();
     var c = main.querySelector('.fc-card'); if (c) c.focus();
   }
   function close() {
