@@ -8,7 +8,11 @@ window.MT_UPDATES = [
       'Thanh menu dưới cùng có chữ to hơn một chút, dễ đọc tên từng mục hơn.',
       'Băng hoại: khung "Xem bài mẫu" ở trang Writing & Speaking không còn chữ vàng trên nền trắng; nhãn Band và dạng đề đọc rõ hơn.',
       'Đề Speaking & Writing 2025: nhãn quý (Q2/2025) đọc rõ ở mọi giao diện.',
-      'Hình trong đề (bản đồ, sơ đồ) có mô tả cho trình đọc màn hình; nút tốc độ audio đang chọn đậm hơn.'
+      'Hình trong đề (bản đồ, sơ đồ) có mô tả cho trình đọc màn hình; nút tốc độ audio đang chọn đậm hơn.',
+      'Nút chính ở giao diện Hành baro và Thiên thần giữ nguyên kiểu bóng và màu, chỉ đậm hơn để chữ trắng đọc rõ.',
+      'Chữ "IELTS" cạnh logo to hơn, dễ đọc trên điện thoại.',
+      'Lời nhắc "Lần đầu dùng trang này?" chuyển xuống góc dưới bên trái, nhỏ gọn hơn, không còn che tên đề và thanh nghe audio.',
+      'Đề Speaking & Writing 2025: ô ✓ "đã luyện" vẫn ở chỗ cũ nhưng bấm chính xác hơn, không lỡ tay mở đề.'
     ]
   },
   {

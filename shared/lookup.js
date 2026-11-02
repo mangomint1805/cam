@@ -8,8 +8,9 @@
     if (seen) return;
     var t = document.createElement('div');
     t.setAttribute('role', 'note');
-    t.style.cssText = 'position:fixed;right:12px;top:86px;z-index:65;max-width:min(330px,calc(100vw - 24px));background:#1e232b;color:#fff;border-radius:12px;padding:11px 40px 11px 14px;font:14px/1.45 "IBM Plex Sans",system-ui,sans-serif;box-shadow:0 8px 26px rgba(0,0,0,.25)';
-    t.innerHTML = 'Lần đầu dùng trang này? <a href="../huong-dan.html" style="color:#f2c879;font-weight:700">Xem hướng dẫn 2 phút →</a><button type="button" aria-label="Đóng" style="position:absolute;top:6px;right:8px;border:0;background:none;color:#fff;font-size:16px;cursor:pointer">✕</button>';
+    // góc dưới bên trái: không che tên đề, thanh audio hay nút nổi bên phải (điện thoại và máy tính như nhau)
+    t.style.cssText = 'position:fixed;left:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:65;max-width:min(330px,calc(100vw - 88px));background:#1e232b;color:#fff;border-radius:12px;padding:10px 44px 10px 14px;font:13.5px/1.45 "IBM Plex Sans",system-ui,sans-serif;box-shadow:0 8px 26px rgba(0,0,0,.25)';
+    t.innerHTML = 'Lần đầu dùng trang này? <a href="../huong-dan.html" style="color:#f2c879;font-weight:700">Xem hướng dẫn 2 phút →</a><button type="button" aria-label="Đóng" style="position:absolute;top:2px;right:2px;width:40px;height:40px;border:0;background:none;color:#fff;font-size:16px;cursor:pointer">✕</button>';
     function done() { try { localStorage.setItem('cam.guide.seen', '1'); } catch (e) {} t.remove(); }
     t.querySelector('button').onclick = done; t.querySelector('a').onclick = function () { try { localStorage.setItem('cam.guide.seen', '1'); } catch (e) {} };
     var go = function () { document.body.appendChild(t); setTimeout(function () { if (t.isConnected) done(); }, 15000); };

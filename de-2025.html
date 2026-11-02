@@ -49,6 +49,7 @@ html[data-theme=dark] .topics button[aria-pressed=true]{background:var(--brand);
 .grp{font:700 12.5px/1 'IBM Plex Sans';text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin:18px 0 6px}
 details.tp{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:8px 0;overflow:hidden}
 details.tp summary{list-style:none;cursor:pointer;display:flex;gap:10px;align-items:center;padding:12px 14px}
+/* ô ✓ nằm NGOÀI <summary> (trình đọc màn hình không đọc lẫn), đặt đè đúng chỗ cũ bên trái */.tpw{position:relative}.tpw>.ck{position:absolute;left:14px;top:21px;z-index:1}.tpw>details.tp summary{padding-left:50px}
 details.tp summary::-webkit-details-marker{display:none}
 details.tp summary .t{flex:1;min-width:0}details.tp summary .t b{display:block;font-size:15.5px}details.tp summary .t small{color:var(--dim);font-size:13px}
 .hot{flex:none;font:700 11.5px/1 'IBM Plex Sans';color:#b4441f;background:#fde5d6;border-radius:999px;padding:4px 8px}
@@ -164,7 +165,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
     document.getElementById('sum').innerHTML=TABS.map(function(x){ var L=D[x[0]], d=L.filter(function(t){return DONE[x[0]+':'+t.id];}).length;
       return '<div><b>'+d+'/'+L.length+'</b><span>'+x[1]+'</span><div class="pbar"><s style="width:'+(L.length?d/L.length*100:0)+'%"></s></div></div>'; }).join('');
   }
-  function ck(k,t){ var d=!!DONE[k+':'+t.id]; return '<button class="ck'+(d?' on':'')+'" data-ck="'+esc(t.id)+'" aria-label="Đánh dấu đã luyện" title="Đã luyện">'+(d?'✓':'')+'</button>'; }
+  function ck(k,t){ var d=!!DONE[k+':'+t.id]; return '<button class="ck'+(d?' on':'')+'" data-ck="'+esc(t.id)+'" aria-label="Đánh dấu đã luyện" aria-pressed="'+d+'" title="Đã luyện">'+(d?'✓':'')+'</button>'; }
   function perTag(t){ return t.per?'<span class="per'+(isQ2(t)?' q2':'')+'">'+esc(t.per)+'</span>':''; }
   function body(t,k){
     if(k==='p1') return '<ol>'+t.q.map(function(x,i){ return '<li>'+hl(x)+' <button class="sb" data-say="'+esc(x)+'" style="padding:1px 7px" aria-label="Nghe câu hỏi">🔊</button> <button class="sb" data-p1="'+i+'" style="padding:1px 7px" aria-label="Luyện và ghi âm câu này">🎙</button></li>'; }).join('')+'</ol>';
@@ -197,7 +198,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
       G[g].forEach(function(t){
         if(tab==='t2'){ h+='<div class="wq" data-id="'+esc(t.id)+'">'+ck(tab,t)+'<p>'+hl(t.p)+'<br><button class="sb" data-write="1" style="margin-top:6px">✍️ Viết bài'+(draft('t2',t)?' (có nháp)':'')+'</button></p></div>'; return; }
         var title=tab==='t1'?t.p:t.t, sub=tab==='p1'?t.q.length+' câu hỏi':tab==='p2'?t.cue:KIND[t.k];
-        h+='<details class="tp" data-id="'+esc(t.id)+'"'+(qy&&tab!=='t1'?' open':'')+'><summary>'+ck(tab,t)+'<span class="t"><b>'+hl(title)+'</b><small>'+(tab==='t1'?esc(sub):hl(sub))+'</small></span>'+(tab==='t1'?'':perTag(t))+'</summary><div class="bd"></div></details>';
+        h+='<div class="tpw">'+ck(tab,t)+'<details class="tp" data-id="'+esc(t.id)+'"'+(qy&&tab!=='t1'?' open':'')+'><summary><span class="t"><b>'+hl(title)+'</b><small>'+(tab==='t1'?esc(sub):hl(sub))+'</small></span>'+(tab==='t1'?'':perTag(t))+'</summary><div class="bd"></div></details></div>';
       });
       h+='</details>';
     });
@@ -208,7 +209,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
       function fill(){ if(el.tagName==='DETAILS'&&el.open&&!el._b){ el._b=1; el.querySelector('.bd').innerHTML=body(t,tab); bindBody(el,t); } }
       if(el.tagName==='DETAILS'){ el.addEventListener('toggle',fill); fill(); }
       if(tab==='t2'){ var wb=el.querySelector('[data-write]'); if(wb) wb.onclick=function(){ writeBox(t,'t2'); }; }
-      var c=el.querySelector('[data-ck]'); if(c) c.onclick=function(e){ e.preventDefault(); e.stopPropagation(); var k=tab+':'+t.id; if(DONE[k]) delete DONE[k]; else DONE[k]=Date.now(); put('mt.d25.done',DONE); c.classList.toggle('on',!!DONE[k]); c.textContent=DONE[k]?'✓':''; summary(); };
+      var c=el.querySelector('[data-ck]')||(el.parentNode.classList.contains('tpw')?el.parentNode.querySelector('[data-ck]'):null); if(c) c.onclick=function(e){ e.preventDefault(); e.stopPropagation(); var k=tab+':'+t.id; if(DONE[k]) delete DONE[k]; else DONE[k]=Date.now(); put('mt.d25.done',DONE); c.classList.toggle('on',!!DONE[k]); c.setAttribute('aria-pressed',!!DONE[k]); c.textContent=DONE[k]?'✓':''; summary(); };
     });
   }
   function bindBody(el,t){
@@ -309,7 +310,7 @@ mark{background:#ffe9a8;color:inherit;border-radius:3px}
   render();
 })();
 </script>
-<script src="shared/ui.js?v=16"></script>
+<script src="shared/ui.js?v=17"></script>
 <script>if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(function(){});});</script>
 </body>
 </html>
