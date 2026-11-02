@@ -1,6 +1,17 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-11-03', date: '03/11/2026',
+    title: 'Chữ và nút dễ đọc hơn',
+    items: [
+      'Chữ màu cam, chữ phụ màu xám và nút bấm ở giao diện Xoài, Hành baro, Thiên thần được làm đậm hơn một chút, nhìn rõ hơn trên điện thoại, nhất là khi ra ngoài trời sáng.',
+      'Thanh menu dưới cùng có chữ to hơn một chút, dễ đọc tên từng mục hơn.',
+      'Băng hoại: khung "Xem bài mẫu" ở trang Writing & Speaking không còn chữ vàng trên nền trắng; nhãn Band và dạng đề đọc rõ hơn.',
+      'Đề Speaking & Writing 2025: nhãn quý (Q2/2025) đọc rõ ở mọi giao diện.',
+      'Hình trong đề (bản đồ, sơ đồ) có mô tả cho trình đọc màn hình; nút tốc độ audio đang chọn đậm hơn.'
+    ]
+  },
+  {
     id: '2026-11-02b', date: '02/11/2026',
     title: 'Nút bấm dễ chạm hơn trên điện thoại',
     items: [

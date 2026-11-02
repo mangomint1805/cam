@@ -4,7 +4,7 @@
   if (/[?&]thi=1/.test(location.search)) return;
   var SP = 1; try { SP = parseFloat(localStorage.getItem('cam.speed')) || 1; } catch (e) {}
   var css = document.createElement('style');
-  css.textContent = '.spd{display:inline-flex;gap:4px;align-items:center;font-size:12.5px;color:#666e7a}.spd button{font:700 12px/1 "IBM Plex Sans",sans-serif;border:1.5px solid #ddd7c9;background:#fff;color:#666e7a;border-radius:999px;padding:4px 8px;cursor:pointer}.spd button[aria-pressed=true]{background:#a8691a;border-color:#a8691a;color:#fff}';
+  css.textContent = '.spd{display:inline-flex;gap:4px;align-items:center;font-size:12.5px;color:#666e7a}.spd button{font:700 12px/1 "IBM Plex Sans",sans-serif;border:1.5px solid #ddd7c9;background:#fff;color:#666e7a;border-radius:999px;padding:4px 8px;cursor:pointer}.spd button[aria-pressed=true]{background:var(--brand,#9a5f14);border-color:var(--brand,#9a5f14);color:#fff}';
   document.head.appendChild(css);
   function all() { return [].slice.call(document.querySelectorAll('audio')); }
   function set(v) { SP = v; try { localStorage.setItem('cam.speed', v); } catch (e) {} all().forEach(function (a) { a.playbackRate = v; });
