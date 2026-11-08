@@ -1,6 +1,15 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-11-08', date: '08/11/2026',
+    title: 'Tô sáng được cả câu hỏi và đáp án',
+    items: [
+      'Giờ bạn bôi đen được chữ trong câu hỏi, đề bài và các lựa chọn A, B, C… để tô vàng hoặc ghi chú, không chỉ trong bài đọc nữa. Phần Listening cũng tô được.',
+      'Bấm vào chữ đã tô trong một lựa chọn sẽ mở ghi chú, không vô tình chọn luôn đáp án đó.',
+      'Mỗi phần có nút "Xoá tô sáng" để xoá nhanh. Tô sáng được lưu lại, tải lại trang vẫn còn.'
+    ]
+  },
+  {
     id: '2026-11-03', date: '03/11/2026',
     title: 'Chữ và nút dễ đọc hơn',
     items: [

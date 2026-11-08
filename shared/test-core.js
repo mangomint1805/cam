@@ -308,40 +308,75 @@ var HK=BK+'.hl.t'+N;
 function hlLoad(){ var o={}; try{o=JSON.parse(lsGet(HK))||{};}catch(e){} return o; }
 function hlSave(){ var o={}; $$('.passage').forEach(function(ps){ $$('.ptext p',ps).forEach(function(p,i){ if(p.querySelector('mark.hl')){ var c=p.cloneNode(true); $$('mark.ev,.evtag,.loc',c).forEach(function(x){ if(x.tagName==='MARK') x.replaceWith(document.createTextNode(x.textContent)); else x.remove(); }); o[ps.id+':'+i]=c.innerHTML; } }); }); lsSet(HK,JSON.stringify(o)); }
 function hlRestore(){ var o=hlLoad(); Object.keys(o).forEach(function(k){ var a=k.split(':'), ps=document.getElementById(a[0]); if(!ps) return; var p=$$('.ptext p',ps)[+a[1]]; if(p) p.innerHTML=o[k]; }); }
+// vùng câu hỏi (đề bài, câu hỏi, đáp án): lưu theo vị trí chữ để không làm mất ô nhập / lựa chọn
+var QB='.pqs p,.pqs li,.pqs td,.pqs th,.pqs h4,.pqs .qline,.pqs .opt span,.part > p,.part li,.part td,.part th,.part h4,.part .qline,.part .opt span';
+var QHK=HK+'.q';
+function qBlocks(){ return $$(QB).filter(function(b){ return !b.closest('.ptext,.script,.audio,.hltool,.notebox,.ptools') && !b.querySelector(QB.replace(/,/g,',')); }); }
+function qBlockOf(n){ var el=n&&(n.nodeType===1?n:n.parentElement); if(!el) return null; var bs=qBlocks(), c=el; while(c&&c!==document.body){ if(bs.indexOf(c)>=0) return c; c=c.parentElement; } return null; }
+function txtNodes(b){ var w=document.createTreeWalker(b,NodeFilter.SHOW_TEXT,{acceptNode:function(t){ return t.parentElement.closest('select,option,script,button,.evtag,.loc')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT; }}), a=[], t; while((t=w.nextNode())) a.push(t); return a; }
+function offIn(b,node,off){ var ns=txtNodes(b), n=0; if(node.nodeType!==3){ var r=document.createRange(); r.setStart(node,off); for(var i=0;i<ns.length;i++){ var rr=document.createRange(); rr.selectNodeContents(ns[i]); if(r.compareBoundaryPoints(Range.START_TO_START,rr)<=0) return n; n+=ns[i].length; } return n; }
+  for(var j=0;j<ns.length;j++){ if(ns[j]===node) return n+off; n+=ns[j].length; } return -1; }
+function qLoad(){ var a=[]; try{a=JSON.parse(lsGet(QHK))||[];}catch(e){} return a; }
+function qSave(a){ lsSet(QHK,JSON.stringify(a)); }
+function qApply(h){ var b=qBlocks()[h.b]; if(!b) return null; var ns=txtNodes(b), n=0, first=null;
+  ns.forEach(function(t){ var a=n, z=n+t.length; n=z; var s0=Math.max(h.s,a), e0=Math.min(h.e,z); if(e0<=s0) return;
+    var r=document.createRange(); r.setStart(t,s0-a); r.setEnd(t,e0-a); var mk=document.createElement('mark'); mk.className='hl'+(h.note?' has-note':''); mk.setAttribute('data-hid',h.id); if(h.note){ mk.setAttribute('data-note',h.note); mk.title=h.note; } try{ r.surroundContents(mk); if(!first) first=mk; }catch(e){} });
+  return first; }
+function qUnwrap(id){ $$('mark.hl[data-hid="'+id+'"]').forEach(function(mk){ var t=document.createDocumentFragment(); while(mk.firstChild) t.appendChild(mk.firstChild); var par=mk.parentNode; mk.replaceWith(t); if(par) par.normalize(); }); }
 function setupHighlight(){
-  if(!$('.ptext')) return;
+  if(!$('.ptext') && !$('.part')) return;
   hlRestore();
+  qLoad().forEach(qApply);
   var tb=document.createElement('div'); tb.className='hltool'; tb.hidden=true;
   tb.innerHTML='<button type="button" data-h="y">🖍 Tô vàng</button><button type="button" data-h="n">📝 Ghi chú</button>';
   document.body.appendChild(tb);
   var nb=document.createElement('div'); nb.className='notebox'; nb.hidden=true;
   nb.innerHTML='<textarea rows="3" placeholder="Ghi chú của bạn…"></textarea><div><button type="button" data-n="save" class="btn">Lưu</button> <button type="button" data-n="del" class="btn alt">Bỏ tô</button></div>';
   document.body.appendChild(nb);
-  var range=null, curMark=null;
+  var range=null, curMark=null, qRange=null;
   function place(el,x,y){ el.style.left=Math.max(8,Math.min(window.innerWidth-el.offsetWidth-8,x))+'px'; el.style.top=(y+window.scrollY)+'px'; }
   function onSel(){
     var sel=window.getSelection(); if(!sel.rangeCount||sel.isCollapsed){ tb.hidden=true; return; }
     var r=sel.getRangeAt(0), p1=r.startContainer.parentElement&&r.startContainer.parentElement.closest('.ptext p'), p2=r.endContainer.parentElement&&r.endContainer.parentElement.closest('.ptext p');
-    if(!p1||p1!==p2||!r.toString().trim()){ tb.hidden=true; return; }
+    qRange=null;
+    if(!p1||p1!==p2){ var b1=qBlockOf(r.startContainer), b2=qBlockOf(r.endContainer);
+      if(!b1||b1!==b2||!r.toString().trim()||r.cloneContents().querySelector('input,select,textarea,mark')){ tb.hidden=true; return; }
+      var s0=offIn(b1,r.startContainer,r.startOffset), e0=offIn(b1,r.endContainer,r.endOffset); if(s0<0||e0<=s0){ tb.hidden=true; return; }
+      qRange={b:qBlocks().indexOf(b1),s:s0,e:e0}; }
+    else if(!r.toString().trim()){ tb.hidden=true; return; }
     range=r.cloneRange(); tb.hidden=false; var rc=r.getBoundingClientRect(); place(tb,rc.left+rc.width/2-tb.offsetWidth/2,rc.top-44);
   }
   document.addEventListener('mouseup',function(e){ if(tb.contains(e.target)||nb.contains(e.target)) return; setTimeout(onSel,10); });
   document.addEventListener('touchend',function(e){ if(tb.contains(e.target)||nb.contains(e.target)) return; setTimeout(onSel,250); });
   document.addEventListener('mousedown',function(e){ if(!nb.contains(e.target)&&!(e.target.closest&&e.target.closest('mark.hl'))) nb.hidden=true; });
-  function wrap(){ if(!range) return null; var mk=document.createElement('mark'); mk.className='hl';
+  function wrap(){ if(!range) return null;
+    if(qRange){ var h={id:'h'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),b:qRange.b,s:qRange.s,e:qRange.e}, a=qLoad(); a.push(h); qSave(a); window.getSelection().removeAllRanges(); tb.hidden=true; range=null; qRange=null; return qApply(h); }
+    var mk=document.createElement('mark'); mk.className='hl';
     try{ mk.appendChild(range.extractContents()); range.insertNode(mk); }catch(e){ return null; } window.getSelection().removeAllRanges(); tb.hidden=true; range=null; hlSave(); return mk; }
   tb.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b) return; var mk=wrap(); if(mk&&b.dataset.h==='n') openNote(mk); });
   function openNote(mk){ curMark=mk; nb.hidden=false; $('textarea',nb).value=mk.getAttribute('data-note')||''; var rc=mk.getBoundingClientRect(); place(nb,rc.left,rc.bottom+6); $('textarea',nb).focus(); }
-  document.addEventListener('click',function(e){ var mk=e.target.closest&&e.target.closest('mark.hl'); if(mk && !window.getSelection().toString()) openNote(mk); });
+  document.addEventListener('click',function(e){ var mk=e.target.closest&&e.target.closest('mark.hl'); if(mk && !window.getSelection().toString()){ if(mk.closest('label')) e.preventDefault(); openNote(mk); } },true);
   nb.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b||!curMark) return;
+    var hid=curMark.getAttribute('data-hid');
+    if(hid){ var a=qLoad(), h=a.filter(function(x){return x.id===hid;})[0];
+      if(b.dataset.n==='save'&&h){ var v=$('textarea',nb).value.trim(); if(v) h.note=v; else delete h.note; qSave(a); qUnwrap(hid); qApply(h); }
+      else if(b.dataset.n!=='save'){ qSave(a.filter(function(x){return x.id!==hid;})); qUnwrap(hid); }
+      nb.hidden=true; curMark=null; return; }
     if(b.dataset.n==='save'){ var v=$('textarea',nb).value.trim(); if(v){ curMark.setAttribute('data-note',v); curMark.title=v; curMark.classList.add('has-note'); } else { curMark.removeAttribute('data-note'); curMark.removeAttribute('title'); curMark.classList.remove('has-note'); } }
     else { var t=document.createDocumentFragment(); while(curMark.firstChild) t.appendChild(curMark.firstChild); curMark.replaceWith(t); }
     nb.hidden=true; curMark=null; hlSave(); });
   $$('.passage').forEach(function(ps){
     var h=document.createElement('div'); h.className='ptools';
-    h.innerHTML='<span>Bôi đen chữ trong bài để tô vàng hoặc ghi chú.</span><button type="button" class="mini" data-clear>Xoá tô sáng</button>';
+    h.innerHTML='<span>Bôi đen chữ trong bài hoặc câu hỏi để tô vàng, ghi chú.</span><button type="button" class="mini" data-clear>Xoá tô sáng</button>';
     var head=$('.part-title',ps); head.insertAdjacentElement('afterend',h);
-    $('[data-clear]',h).onclick=function(){ if(!confirm('Xoá hết tô sáng và ghi chú của passage này?')) return; $$('.ptext mark.hl',ps).forEach(function(mk){ var t=document.createDocumentFragment(); while(mk.firstChild) t.appendChild(mk.firstChild); mk.replaceWith(t); }); hlSave(); };
+    $('[data-clear]',h).onclick=function(){ if(!confirm('Xoá hết tô sáng và ghi chú của passage này?')) return; $$('.ptext mark.hl',ps).forEach(function(mk){ var t=document.createDocumentFragment(); while(mk.firstChild) t.appendChild(mk.firstChild); mk.replaceWith(t); }); hlSave(); qClearIn(ps); };
+  });
+  function qClearIn(root){ var ids={}; $$('mark.hl[data-hid]',root).forEach(function(mk){ ids[mk.getAttribute('data-hid')]=1; }); Object.keys(ids).forEach(qUnwrap); qSave(qLoad().filter(function(x){ return !ids[x.id]; })); }
+  $$('.part').forEach(function(pt){ if($('.passage',pt)||!$('.part-title',pt)) return;
+    var h=document.createElement('div'); h.className='ptools';
+    h.innerHTML='<span>Bôi đen chữ trong câu hỏi để tô vàng hoặc ghi chú.</span><button type="button" class="mini" data-clear>Xoá tô sáng</button>';
+    $('.part-title',pt).insertAdjacentElement('afterend',h);
+    $('[data-clear]',h).onclick=function(){ if(!confirm('Xoá hết tô sáng và ghi chú của phần này?')) return; qClearIn(pt); };
   });
 }
 
