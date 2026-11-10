@@ -67,9 +67,10 @@ details.sample .in{padding:2px 16px 12px;white-space:pre-line;font-size:15px}
 .sq:first-of-type{border-top:0}
 .sq .txt{flex:1}
 .sq .ctl{display:flex;gap:6px;flex-wrap:wrap;flex:none}
-.ic{font:inherit;font-size:13px;font-weight:600;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;cursor:pointer;color:var(--brand-ink);white-space:nowrap}
-.ic:hover{border-color:var(--brand)}
-.ic.on{background:var(--bad);border-color:var(--bad);color:#fff}
+.sbt{font:inherit;font-size:13px;font-weight:600;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;cursor:pointer;color:var(--brand-ink);white-space:nowrap}
+.sbt:hover{border-color:var(--brand)}
+@media (max-width:520px){.sq{flex-wrap:wrap}.sq .txt{flex:1 1 100%}}
+.sbt.on{background:var(--bad);border-color:var(--bad);color:#fff}
 .sq audio{display:block;width:100%;max-width:360px;height:32px;margin-top:4px}
 .cue{border:2px solid var(--ink);border-radius:6px;padding:14px 18px;background:#fff;max-width:560px;font-size:16.5px}
 .cue b{display:block;font-size:17.5px;margin-bottom:6px}
@@ -244,7 +245,7 @@ details.sample .in{padding:2px 16px 12px;white-space:pre-line;font-size:15px}
   // gửi bài nói cho thầy (Firestore: rec = thông tin, recdata = âm thanh), cần đăng nhập Google
   function addSend(box){
     var q=box._q||'', b=document.createElement('div'); b.className='sendrec';
-    b.innerHTML='<button class="ic" type="button">📤 Gửi cho thầy nghe</button><span class="sub"></span>'; box.appendChild(b);
+    b.innerHTML='<button class="sbt" type="button">📤 Gửi cho thầy nghe</button><span class="sub"></span>'; box.appendChild(b);
     var btn=b.firstChild, st=b.lastChild;
     btn.onclick=function(){
       var acc=null; try{acc=JSON.parse(lsg('mt.acc')||'null');}catch(e){}
@@ -263,14 +264,14 @@ details.sample .in{padding:2px 16px 12px;white-space:pre-line;font-size:15px}
       }; rd.readAsDataURL(box._blob);
     };
   }
-  function qrow(q,i){return '<div class="sq"><div class="txt">'+esc(q)+'<div class="rb" id="rb'+i+'"></div></div><div class="ctl"><button class="ic" data-say="'+i+'" type="button">🔊 Nghe</button><button class="ic" data-rec="'+i+'" type="button">🎙 Ghi âm</button></div></div>';}
+  function qrow(q,i){return '<div class="sq"><div class="txt">'+esc(q)+'<div class="rb" id="rb'+i+'"></div></div><div class="ctl"><button class="sbt" data-say="'+i+'" type="button">🔊 Nghe</button><button class="sbt" data-rec="'+i+'" type="button">🎙 Ghi âm</button></div></div>';}
   function speaking(){
     var s=D.s, Qs=[], h='';
     h+='<div class="card"><h2 class="t">Speaking Part 1</h2><p class="dtype">Chủ đề: <b>'+esc(s.p1.slice(1).map(function(x){return x.topic;}).join(', ')||'—')+'</b></p><p class="sub">Giới thiệu & chủ đề quen thuộc · 4–5 phút. Trả lời 2–3 câu cho mỗi câu hỏi, có lý do / ví dụ.</p>';
     s.p1.forEach(function(tp){h+='<div class="topic">'+esc(tp.topic)+'</div>';tp.qs.forEach(function(q){h+=qrow(q,Qs.length);Qs.push(q);});});
     h+='</div><div class="card"><h2 class="t">Speaking Part 2</h2><p class="sub">1 phút chuẩn bị (được ghi chú) · nói 1–2 phút liên tục.</p>'+
       '<div class="cue"><b>'+esc(s.p2.card)+'</b>You should say:<ul>'+s.p2.points.map(function(p){return '<li>'+esc(p)+'</li>';}).join('')+'</ul>'+esc(s.p2.end||'')+'</div>'+
-      '<div class="stage"><span class="big" id="p2c">1:00</span><span class="lbl" id="p2l">Sẵn sàng</span><button class="btn" id="p2go" type="button">▶ Bắt đầu chuẩn bị 1 phút</button><button class="ic" id="p2say" type="button">🔊 Nghe đề</button></div>'+
+      '<div class="stage"><span class="big" id="p2c">1:00</span><span class="lbl" id="p2l">Sẵn sàng</span><button class="btn" id="p2go" type="button">▶ Bắt đầu chuẩn bị 1 phút</button><button class="sbt" id="p2say" type="button">🔊 Nghe đề</button></div>'+
       '<textarea class="notes" id="p2n" placeholder="Ghi chú nhanh trong 1 phút chuẩn bị…"></textarea><div id="p2rb"></div>'+
       (s.p2.follow&&s.p2.follow.length?'<div class="topic">Câu hỏi thêm</div>'+s.p2.follow.map(function(q){var r=qrow(q,Qs.length);Qs.push(q);return r;}).join(''):'')+'</div>';
     h+='<div class="card"><h2 class="t">Speaking Part 3</h2><p class="dtype">Chủ đề: <b>'+esc(s.p3.map(function(x){return x.topic;}).join(', '))+'</b></p><p class="sub">Thảo luận sâu hơn · 4–5 phút. Nêu quan điểm, giải thích, so sánh, đưa ví dụ xã hội.</p>';

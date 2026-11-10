@@ -49,6 +49,8 @@ blockquote.opts{margin:6px 0 12px 34px;padding:0;display:grid;gap:5px}
 .opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
 /* reading split */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.split>*{min-width:0}
+.tbl-x{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .ptext{max-height:calc(100vh - 150px);overflow:auto;position:sticky;top:76px;padding-right:12px;border-right:1px solid var(--line)}
 .ptext p strong:first-child{color:var(--brand-ink)}
 @media (max-width:900px){.split{grid-template-columns:1fr}.ptext{max-height:none;position:static;border-right:0;padding-right:0;border-bottom:1px solid var(--line);padding-bottom:12px}}

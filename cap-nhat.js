@@ -1,6 +1,14 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-11-10', date: '10/11/2026',
+    title: 'Sửa hiển thị trên điện thoại: nút Speaking và đề có bảng rộng',
+    items: [
+      'Trang Writing & Speaking: nút 🔊 Nghe và 🎙 Ghi âm ở phần Speaking trước đây bị bóp nhỏ, chữ đè lên nhau. Giờ hiện đúng, và trên điện thoại nằm gọn dưới mỗi câu hỏi.',
+      'Đề Reading có bảng nhiều cột (ví dụ Cam 18 Test 1, Cam 21 Test 2): trang không còn bị kéo ngang, bài đọc và câu hỏi nằm vừa màn hình. Bảng nào rộng thì chỉ vuốt ngang riêng bảng đó.'
+    ]
+  },
+  {
     id: '2026-11-08', date: '08/11/2026',
     title: 'Tô sáng được cả câu hỏi và đáp án',
     items: [

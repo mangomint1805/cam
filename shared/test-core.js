@@ -401,6 +401,8 @@ $$('.tabs button').forEach(function(b){b.onclick=function(){tab(b.dataset.s); wi
 function tick(){ if(!EXAM) $('#timer').textContent=fmt(state.time[cur]||0); }
 if(!EXAM) setInterval(function(){ if(document.hidden||state.done[cur]) return; state.time[cur]=(state.time[cur]||0)+1; tick(); if(state.time[cur]%10===0) save(); },1000);
 
+// Bảng rộng hơn khung (bảng nhiều cột có ô điền): cho riêng bảng đó cuộn ngang, không làm tràn cả trang
+[].forEach.call(document.querySelectorAll('main table'), function(t){ var p=t.parentNode; if(!p||(p.classList&&p.classList.contains('tbl-x'))) return; var w=document.createElement('div'); w.className='tbl-x'; p.insertBefore(w,t); w.appendChild(t); });
 setupHighlight(); setupVocab();
 ['L','R'].forEach(function(s){ if(state.done[s]&&$('#sect'+s)) grade(s); });
 grid(); tab(MODE?MODE[0]:(location.hash==='#reading'?'R':'L'));
