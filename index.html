@@ -166,7 +166,7 @@ html[data-theme=dark] .nenbar{background:linear-gradient(120deg,#2a2216,#231c12)
       <li>Bài làm tự lưu trên máy này. Mỗi bộ có trang <b>Tiến độ</b> riêng, còn <b>Điểm yếu</b> gom kết quả cả 5 bộ.</li>
     </ul>
   </details>
-  <footer><span>© Minto English · Cambridge IELTS 21 · 20 · 19 · 18 · 17 · Original Exams VOL 6 · VOL 7 · VOL 8 · VOL 9, tài liệu luyện tập cho học viên</span><a href="https://mangomint1805.github.io/toeic/" style="color:var(--brand-ink);font-weight:600">Luyện đề TOEIC →</a></footer>
+  <footer><span>© Minto English · Cambridge IELTS 21 · 20 · 19 · 18 · 17 · Original Exams VOL 5 · VOL 6 · VOL 7 · VOL 8 · VOL 9, tài liệu luyện tập cho học viên</span><a href="https://mangomint1805.github.io/toeic/" style="color:var(--brand-ink);font-weight:600">Luyện đề TOEIC →</a></footer>
 </div>
 <script src="shared/ui.js?v=17"></script>
 <script>
@@ -179,7 +179,7 @@ html[data-theme=dark] .nenbar{background:linear-gradient(120deg,#2a2216,#231c12)
   function hi(){ if(name){ var f=name.trim().split(/\s+/).pop(); document.getElementById('hi').innerHTML='Chào <em>'+esc(f)+'</em>, hôm nay luyện gì nhỉ?'; } }
   hi();
   var S=window.MSTATS?MSTATS():{streak:0,bestL:0,bestR:0,subs:0}, all=[];
-  var VOLS=[{id:'v6',n:6,c:'#3d5f8f',nt:6,max:6},{id:'v7',n:7,c:'#2f6f6a',nt:10,max:10},{id:'v8',n:8,c:'#8a5a2b',nt:8,max:8},{id:'v9',n:9,c:'#6b4f8a',nt:9,max:9}];
+  var VOLS=[{id:'v5',n:5,c:'#7a3e4f',nt:1,max:1,tests:[2],note:'Test 2 · chỉ có Reading'},{id:'v6',n:6,c:'#3d5f8f',nt:6,max:6},{id:'v7',n:7,c:'#2f6f6a',nt:10,max:10},{id:'v8',n:8,c:'#8a5a2b',nt:8,max:8},{id:'v9',n:9,c:'#6b4f8a',nt:9,max:9}];
   BOOKS.forEach(function(b){ (get('cam'+b.n+'.hist')||[]).forEach(function(r){ r.book=b.n; all.push(r); }); });
   VOLS.forEach(function(b){ (get('cam'+b.id+'.hist')||[]).forEach(function(r){ r.book=b.id; all.push(r); }); });
   all.sort(function(a,b){ return (a.t||0)-(b.t||0); });
@@ -212,8 +212,8 @@ html[data-theme=dark] .nenbar{background:linear-gradient(120deg,#2a2216,#231c12)
   VOLS.forEach(function(b){
     var hs=get('cam'+b.id+'.hist')||[], tt={};
     hs.forEach(function(r){ var k=r.test; if(!tt[k]) tt[k]={}; tt[k][r.sec]=1; });
-    var dots='', nt=0; for(var k=1;k<=b.nt;k++){ var x=tt[k]||{}; var c=x.L&&x.R?'on':(x.L||x.R?'h':''); if(c) nt++; dots+='<i class="'+c+'" title="Test '+k+'"></i>'; }
-    h2+='<li><a class="book" href="'+b.id+'/" style="--c:'+b.c+'"><span class="spine" aria-hidden="true"><small>VOL</small><b>'+b.n+'</b></span><span class="binfo"><b>Original Exams VOL '+b.n+'</b><span>'+b.nt+' test · đang cập nhật thêm (tổng '+b.max+')</span><span class="dots" aria-label="Đã làm '+nt+'/'+b.nt+' test">'+dots+'</span><span>'+(hs.length?'Đã nộp '+hs.length+' bài':'Chưa làm bài nào')+'</span></span><span class="go">'+I('arrow')+'</span></a></li>';
+    var dots='', nt=0, ks=b.tests||[]; if(!b.tests) for(var q=1;q<=b.nt;q++) ks.push(q); ks.forEach(function(k){ var x=tt[k]||{}; var c=(x.L&&x.R)||(b.tests&&x.R)?'on':(x.L||x.R?'h':''); if(c) nt++; dots+='<i class="'+c+'" title="Test '+k+'"></i>'; });
+    h2+='<li><a class="book" href="'+b.id+'/" style="--c:'+b.c+'"><span class="spine" aria-hidden="true"><small>VOL</small><b>'+b.n+'</b></span><span class="binfo"><b>Original Exams VOL '+b.n+'</b><span>'+(b.note||b.nt+' test · đang cập nhật thêm (tổng '+b.max+')')+'</span><span class="dots" aria-label="Đã làm '+nt+'/'+b.nt+' test">'+dots+'</span><span>'+(hs.length?'Đã nộp '+hs.length+' bài':'Chưa làm bài nào')+'</span></span><span class="go">'+I('arrow')+'</span></a></li>';
   });
   document.getElementById('books2').innerHTML=h2;
   if(window.MPLAN) MPLAN(document.getElementById('plan'));

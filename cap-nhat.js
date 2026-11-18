@@ -1,6 +1,14 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-11-18', date: '18/11/2026',
+    title: 'Thêm đề Reading: Original Exams VOL 5 · Test 2',
+    items: [
+      'Trang chủ có thêm bộ VOL 5 với phần Reading của Test 2: A survivor’s story, Ideal Homes và Conformity (40 câu).',
+      'Làm cả 3 passage, làm từng passage riêng hoặc thi thử 60 phút. Nộp bài là có điểm, band ước tính, chỗ có đáp án trong bài 📍 và giải thích tiếng Việt 💡 cho từng câu.'
+    ]
+  },
+  {
     id: '2026-11-10', date: '10/11/2026',
     title: 'Sửa hiển thị trên điện thoại: nút Speaking và đề có bảng rộng',
     items: [
