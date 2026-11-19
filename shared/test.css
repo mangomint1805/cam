@@ -141,11 +141,24 @@ mark.hl.has-note::after{content:"📝";font-size:11px;margin-left:1px}
 .exam .ptools span{display:none}
 /* điện thoại: vùng chạm tối thiểu ~44px (lớp ::before vô hình, máy tính không đổi) */
 @media (max-width:600px){
-.spd button,.panel h2 .ptog,.qmk,.back{position:relative}
-.spd button::before,.panel h2 .ptog::before,.qmk::before,.back::before{content:"";position:absolute}
+.spd button,.panel h2 .ptog,.qmk,.back,.mini{position:relative}
+.spd button::before,.panel h2 .ptog::before,.qmk::before,.back::before,.mini::before{content:"";position:absolute}
+.mini::before{inset:-8px -2px}
 .spd button::before{inset:-12px -2px}
 .panel h2 .ptog::before{inset:-10px -4px}
 .qmk::before{inset:-9px}
 .back::before{inset:-11px -8px}
 .qmkp button,.tabs button{min-height:44px}
+}
+/* Thanh trên cùng gọn trên điện thoại (2 hàng); nút góp ý/cài đặt nằm trong thanh, không che bài */
+@media (max-width:600px){
+.bar{padding:8px 12px;gap:6px 8px}
+.bar h1{order:1;flex:1 1 0;min-width:0;font-size:15.5px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bar h1 small{display:none}
+.bar .timer{order:2}
+.bar .mtool-bar{order:3}
+.bar::after{content:"";order:4;flex-basis:100%;height:0}
+.bar .tabs{order:5}
+.bar .modelabel{order:6}
+.bar .back{order:7;margin-left:auto}
 }

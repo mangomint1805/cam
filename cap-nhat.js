@@ -1,6 +1,16 @@
 /* Có gì mới trên web IELTS — mới nhất ở trên cùng. Thêm mục mới vào ĐẦU danh sách; id là ngày (YYYY-MM-DD), cùng ngày thì thêm hậu tố (2026-10-21b). */
 window.MT_UPDATES = [
   {
+    id: '2026-11-19c', date: '19/11/2026',
+    title: 'Giao diện gọn và dễ bấm hơn trên điện thoại',
+    items: [
+      "Trang làm bài trên điện thoại: thanh trên cùng gọn còn 2 hàng (trước gần 1/4 màn hình), nhường chỗ cho đề.",
+      "Nút góp ý và cài đặt nằm trên thanh trên cùng, không còn che ô điền đáp án.",
+      "Hình trong đề (bản đồ, biểu đồ Writing) nhẹ hơn khoảng 3 lần, tải nhanh hơn mà vẫn nét.",
+      "Dải mời đăng nhập gọn còn một dòng; nút nhỏ (Xoá tô sáng, số câu ở Chép chính tả, quay lại) dễ bấm hơn; chữ trên thẻ đề to hơn chút."
+    ]
+  },
+  {
     id: '2026-11-19b', date: '19/11/2026',
     title: 'Luyện phát âm: thêm bài "IPA là gì?" dễ hiểu',
     items: [
