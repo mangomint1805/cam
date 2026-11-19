@@ -74,3 +74,7 @@ apps-script/Code.gs   mã Google Apps Script ghi kết quả vào Sheet (dùng c
 ```
 
 GitHub Pages: Settings → Pages → Branch `main`, folder `/ (root)`.
+
+## Luyện phát âm (phat-am.html)
+
+Chấm phát âm ngay trên trình duyệt học viên: mô hình [lapwing-small](https://huggingface.co/GersonHMG/lapwing-small) (CC BY-NC 4.0, chỉ dùng phi thương mại) chạy bằng onnxruntime-web, tải thẳng từ Hugging Face rồi giữ trong cache `mt-pa-model-v1` (sw.js không xoá cache này). Phiên âm chuẩn: CMU Pronouncing Dictionary (BSD-2-Clause), file `cmu.txt`. Code chung `phat-am.js` giống hệt ở toeic/assets và cam/shared.
